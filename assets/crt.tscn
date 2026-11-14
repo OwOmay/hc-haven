@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bkmpfymvieje8"]
+
+[ext_resource type="PackedScene" uid="uid://dfyjqt7a1lvw1" path="res://assets/crt.glb" id="1_sv8tu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0sr1o"]
+albedo_color = Color(0.81816965, 0.68074626, 0.38700315, 1)
+metallic = 0.07
+metallic_specular = 0.14
+roughness = 0.21
+
+[node name="crt" unique_id=677841464 instance=ExtResource("1_sv8tu")]
+
+[node name="Cube" parent="." index="0" unique_id=1303140081]
+surface_material_override/0 = SubResource("StandardMaterial3D_0sr1o")

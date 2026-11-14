@@ -1,0 +1,154 @@
+[gd_scene format=3 uid="uid://0n3lw2xx0j2h"]
+
+[ext_resource type="PackedScene" uid="uid://bkmpfymvieje8" path="res://assets/crt.tscn" id="1_h21cg"]
+[ext_resource type="PackedScene" uid="uid://s6nwu0o0b20f" path="res://scenes/game/game.tscn" id="2_h21cg"]
+[ext_resource type="Shader" uid="uid://ddqhugcwuxwof" path="res://assets/crt.gdshader" id="3_mou6v"]
+[ext_resource type="Script" uid="uid://cf8ayss7w3gkm" path="res://scenes/game/camera_rig.gd" id="4_4nubl"]
+[ext_resource type="PackedScene" uid="uid://b65k2ucio67ug" path="res://assets/vcr.tscn" id="5_mou6v"]
+[ext_resource type="Script" uid="uid://bt0pch8n515kx" path="res://scenes/game/ffwd_collision.gd" id="6_pdno7"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7h61r"]
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(0, 0, 0, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Sky" id="Sky_0sr1o"]
+sky_material = SubResource("ProceduralSkyMaterial_7h61r")
+
+[sub_resource type="Environment" id="Environment_kelw5"]
+background_mode = 2
+sky = SubResource("Sky_0sr1o")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_7h61r"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0sr1o"]
+resource_local_to_scene = true
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_7h61r")
+
+[sub_resource type="QuadMesh" id="QuadMesh_stlee"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_0sr1o")
+size = Vector2(1.13, 0.85)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_stlee"]
+shader = ExtResource("3_mou6v")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.2000000095
+shader_parameter/scanlines_width = 0.2000000095
+shader_parameter/grille_opacity = 0.2000000095
+shader_parameter/resolution = Vector2(320, 240)
+shader_parameter/pixelate = true
+shader_parameter/roll = true
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_size = 15.0
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/aberration = 0.01000004797499998
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 1.0
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.6
+shader_parameter/vignette_opacity = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_stlee"]
+size = Vector3(0.1, 0.16230468, 0.14030762)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_pdno7"]
+viewport_path = NodePath("vcr2/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mou6v"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_pdno7")
+
+[sub_resource type="QuadMesh" id="QuadMesh_67aof"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_mou6v")
+size = Vector2(0.5, 0.2)
+
+[node name="Game2" type="Node3D" unique_id=160411013]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1819021917]
+environment = SubResource("Environment_kelw5")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1047863552]
+transform = Transform3D(-0.8113482, -0.23082751, 0.53705937, 0.30284336, 0.61985373, 0.72392493, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+light_energy = 0.4
+shadow_enabled = true
+
+[node name="crt2" parent="." unique_id=677841464 instance=ExtResource("1_h21cg")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1846179780]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.16230923, 0, 0)
+mesh = SubResource("QuadMesh_stlee")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1883674649]
+size = Vector2i(1280, 960)
+size_2d_override = Vector2i(640, 480)
+size_2d_override_stretch = true
+
+[node name="Game" parent="SubViewport" unique_id=830499620 instance=ExtResource("2_h21cg")]
+
+[node name="ColorRect" type="ColorRect" parent="SubViewport" unique_id=1670514115]
+material = SubResource("ShaderMaterial_stlee")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CameraRig" type="Node3D" parent="." unique_id=877696390]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+visible = false
+script = ExtResource("4_4nubl")
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig" unique_id=589656840]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.4842887, 0, 0)
+
+[node name="vcr2" parent="." unique_id=869876599 instance=ExtResource("5_mou6v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6892925, -0.872199, 0)
+
+[node name="Area3D" type="Area3D" parent="vcr2" unique_id=1538084766]
+
+[node name="RWND_Collision" type="CollisionShape3D" parent="vcr2/Area3D" unique_id=1061814145]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0218554, 0.031152308, -0.54311854)
+shape = SubResource("BoxShape3D_stlee")
+
+[node name="Area3D2" type="Area3D" parent="vcr2" unique_id=2059078539]
+
+[node name="Pause_Collision" type="CollisionShape3D" parent="vcr2/Area3D2" unique_id=257793111]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0218554, 0.031152308, -0.69842815)
+shape = SubResource("BoxShape3D_stlee")
+
+[node name="Area3D3" type="Area3D" parent="vcr2" unique_id=1758046242]
+
+[node name="FFWD_Collision" type="CollisionShape3D" parent="vcr2/Area3D3" unique_id=622308190]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0218554, 0.031152308, -0.88255334)
+shape = SubResource("BoxShape3D_stlee")
+script = ExtResource("6_pdno7")
+
+[node name="SubViewport" type="SubViewport" parent="vcr2" unique_id=1184693860]
+size = Vector2i(40, 25)
+
+[node name="Label" type="Label" parent="vcr2/SubViewport" unique_id=1355929966]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "1:00"
+
+[node name="ColorRect" type="ColorRect" parent="vcr2/SubViewport" unique_id=570367552]
+material = SubResource("ShaderMaterial_stlee")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="vcr2" unique_id=69560323]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.0584252, 0, -0.21649063)
+mesh = SubResource("QuadMesh_67aof")

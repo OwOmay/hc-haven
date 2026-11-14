@@ -3,9 +3,32 @@
 [ext_resource type="Script" uid="uid://jb2q8v7f1ar6" path="res://scenes/player/player.gd" id="1_8afob"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_stlee"]
+radius = 16.0
 
-[node name="Player" type="RigidBody2D" unique_id=906108662]
+[sub_resource type="Gradient" id="Gradient_8afob"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_stlee"]
+gradient = SubResource("Gradient_8afob")
+width = 32
+height = 32
+
+[node name="Player" type="CharacterBody2D" unique_id=1515075836]
 script = ExtResource("1_8afob")
+acceleration = null
+max_speed = null
+decceleration = null
+up_gravity = null
+down_gravity = null
+jump_power = null
+air_acceleration = null
+air_decceleration = null
+coyote_time = null
+buffer_time = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=687956090]
 shape = SubResource("CircleShape2D_stlee")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=539098632]
+texture = SubResource("GradientTexture2D_stlee")
