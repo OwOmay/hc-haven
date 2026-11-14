@@ -1,13 +1,13 @@
 extends Node2D
 
-func _change_room(x: int, y: int) -> void:
-	position += Vector2(x * 640, y * 480)
+func _change_room() -> void:
+	position = GlobalVars.screen_coord * Vector2(640, 480)
 
 func _ready() -> void:
-	WorldStateHandler.gameStateMachine.on_transition_to_String("Screen_Change_Left", _change_room.bind(1, 0))
-	WorldStateHandler.gameStateMachine.on_transition_to_String("Screen_Change_Right", _change_room.bind(-1, 0))
-	WorldStateHandler.gameStateMachine.on_transition_to_String("Screen_Change_Up", _change_room.bind(0, 1))
-	WorldStateHandler.gameStateMachine.on_transition_to_String("Screen_Change_Down", _change_room.bind(0, -1))
+	WorldStateHandler.gameStateMachine.on_transition_to_String("Screen_Change_Left", _change_room)
+	WorldStateHandler.gameStateMachine.on_transition_to_String("Screen_Change_Right", _change_room)
+	WorldStateHandler.gameStateMachine.on_transition_to_String("Screen_Change_Up", _change_room)
+	WorldStateHandler.gameStateMachine.on_transition_to_String("Screen_Change_Down", _change_room)
 	
 	for i in range (0, GlobalVars.game_screens_width):
 		for j in range (0, GlobalVars.game_screens_height):

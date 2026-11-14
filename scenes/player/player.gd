@@ -99,3 +99,7 @@ func _physics_process(delta: float) -> void:
 		WorldStateHandler.gameStateMachine.transition_to_String("Screen_Change_Up")
 	if position.y > 480:
 		WorldStateHandler.gameStateMachine.transition_to_String("Screen_Change_Down")
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	print("i'm corrupted oh no")

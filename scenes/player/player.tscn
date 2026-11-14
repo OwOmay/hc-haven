@@ -16,19 +16,18 @@ height = 32
 
 [node name="Player" type="CharacterBody2D" unique_id=1515075836]
 script = ExtResource("1_8afob")
-acceleration = null
-max_speed = null
-decceleration = null
-up_gravity = null
-down_gravity = null
-jump_power = null
-air_acceleration = null
-air_decceleration = null
-coyote_time = null
-buffer_time = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=687956090]
 shape = SubResource("CircleShape2D_stlee")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=539098632]
 texture = SubResource("GradientTexture2D_stlee")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1261216071]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=584947695]
+shape = SubResource("CircleShape2D_stlee")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

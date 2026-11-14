@@ -5,7 +5,8 @@
 [ext_resource type="Shader" uid="uid://ddqhugcwuxwof" path="res://assets/crt.gdshader" id="3_mou6v"]
 [ext_resource type="Script" uid="uid://cf8ayss7w3gkm" path="res://scenes/game/camera_rig.gd" id="4_4nubl"]
 [ext_resource type="PackedScene" uid="uid://b65k2ucio67ug" path="res://assets/vcr.tscn" id="5_mou6v"]
-[ext_resource type="Script" uid="uid://bt0pch8n515kx" path="res://scenes/game/ffwd_collision.gd" id="6_pdno7"]
+[ext_resource type="Script" uid="uid://dulqy2hpytwee" path="res://scenes/game/rwnd.gd" id="6_8usey"]
+[ext_resource type="Script" uid="uid://n3csa7pq5iov" path="res://scenes/game/ffwd.gd" id="6_pdno7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7h61r"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -59,6 +60,8 @@ shader_parameter/vignette_opacity = 0.5
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_stlee"]
 size = Vector3(0.1, 0.16230468, 0.14030762)
+
+[sub_resource type="GDScript" id="GDScript_8usey"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_pdno7"]
 viewport_path = NodePath("vcr2/SubViewport")
@@ -115,6 +118,7 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.48
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6892925, -0.872199, 0)
 
 [node name="Area3D" type="Area3D" parent="vcr2" unique_id=1538084766]
+script = ExtResource("6_8usey")
 
 [node name="RWND_Collision" type="CollisionShape3D" parent="vcr2/Area3D" unique_id=1061814145]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0218554, 0.031152308, -0.54311854)
@@ -127,11 +131,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0218554, 0.031152308, -0.69
 shape = SubResource("BoxShape3D_stlee")
 
 [node name="Area3D3" type="Area3D" parent="vcr2" unique_id=1758046242]
+script = ExtResource("6_pdno7")
 
 [node name="FFWD_Collision" type="CollisionShape3D" parent="vcr2/Area3D3" unique_id=622308190]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0218554, 0.031152308, -0.88255334)
 shape = SubResource("BoxShape3D_stlee")
-script = ExtResource("6_pdno7")
+script = SubResource("GDScript_8usey")
 
 [node name="SubViewport" type="SubViewport" parent="vcr2" unique_id=1184693860]
 size = Vector2i(40, 25)

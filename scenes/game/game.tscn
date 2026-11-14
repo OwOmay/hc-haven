@@ -51,13 +51,3 @@ collision_enabled = false
 
 [node name="Player" parent="." unique_id=1515075836 instance=ExtResource("1_sul5r")]
 position = Vector2(320, 240)
-acceleration = 80.0
-max_speed = 300.0
-decceleration = 140.0
-up_gravity = 1.0
-down_gravity = 1.5
-jump_power = -450.0
-air_acceleration = 60.0
-air_decceleration = 60.0
-coyote_time = 0.2
-buffer_time = 0.05
