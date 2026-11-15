@@ -36,7 +36,7 @@ func _transitionScreen(x, y):
 		#GlobalVars.screen_coord.y = GlobalVars.game_screens_height - 1
 	
 	if x < 0:
-		position.x = 639
+		position.x = 630
 	elif x > 0:
 		position.x = 1
 	
@@ -54,6 +54,10 @@ func _ready():
 	WorldStateHandler.gameStateMachine.on_transition_to_String("Screen_Change_Down", _transitionScreen.bind(0, 1))
 	
 	GlobalVars.player = self
+
+func _process(_delta: float) -> void:
+	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		GlobalVars.cancel_move = false
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():

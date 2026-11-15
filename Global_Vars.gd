@@ -10,6 +10,8 @@ var end_time := 562.0
 var game_screens_width: int = 5
 var game_screens_height: int = 5
 
+var cancel_move := false
+
 var screen_coord := Vector2.ZERO
 
 var player: Node

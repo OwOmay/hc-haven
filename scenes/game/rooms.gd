@@ -4,6 +4,8 @@ signal revert
 
 func _revert() -> void:
 	GlobalVars.current_time = GlobalVars.current_time - GlobalVars.time_mod
+	GlobalVars.cancel_move = true
+	GlobalAudio.get_child(0).play()
 
 func _change_room() -> void:
 	position = -GlobalVars.screen_coord * Vector2(640, 480)
