@@ -1,13 +1,14 @@
 [gd_scene format=3 uid="uid://0n3lw2xx0j2h"]
 
-[ext_resource type="PackedScene" uid="uid://bkmpfymvieje8" path="res://assets/crt.tscn" id="1_h21cg"]
+[ext_resource type="PackedScene" uid="uid://duiuci0gdwuac" path="res://assets/crt.glb" id="1_vb4xb"]
 [ext_resource type="PackedScene" uid="uid://s6nwu0o0b20f" path="res://scenes/game/game.tscn" id="2_h21cg"]
 [ext_resource type="Script" uid="uid://xh416tvaxfo2" path="res://scenes/game/Video_Handler.gd" id="3_28sfj"]
 [ext_resource type="Shader" uid="uid://ddqhugcwuxwof" path="res://assets/crt.gdshader" id="3_mou6v"]
 [ext_resource type="Script" uid="uid://cf8ayss7w3gkm" path="res://scenes/game/camera_rig.gd" id="4_4nubl"]
-[ext_resource type="PackedScene" uid="uid://b65k2ucio67ug" path="res://assets/vcr.tscn" id="5_mou6v"]
 [ext_resource type="Script" uid="uid://dulqy2hpytwee" path="res://scenes/game/rwnd.gd" id="6_8usey"]
 [ext_resource type="Script" uid="uid://n3csa7pq5iov" path="res://scenes/game/ffwd.gd" id="6_pdno7"]
+[ext_resource type="PackedScene" uid="uid://chm347hqpaihu" path="res://assets/vcr.glb" id="6_vb4xb"]
+[ext_resource type="Script" uid="uid://d2yfhmhqkhlv1" path="res://scenes/game/vcrlabel.gd" id="9_vb4xb"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7h61r"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -33,7 +34,7 @@ albedo_texture = SubResource("ViewportTexture_7h61r")
 [sub_resource type="QuadMesh" id="QuadMesh_stlee"]
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_0sr1o")
-size = Vector2(1.13, 0.85)
+size = Vector2(4, 3)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_stlee"]
 shader = ExtResource("3_mou6v")
@@ -60,7 +61,7 @@ shader_parameter/vignette_intensity = 0.4
 shader_parameter/vignette_opacity = 0.5
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_stlee"]
-size = Vector3(0.1, 0.16230468, 0.14030762)
+size = Vector3(0.1, 0.29033202, 0.24593505)
 
 [sub_resource type="Shader" id="Shader_28sfj"]
 code = "/*
@@ -321,7 +322,7 @@ shader_parameter/vignette_intensity = 0.6
 shader_parameter/vignette_opacity = 0.5
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_pdno7"]
-viewport_path = NodePath("vcr2/SubViewport")
+viewport_path = NodePath("vcr/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mou6v"]
 resource_local_to_scene = true
@@ -331,6 +332,8 @@ albedo_texture = SubResource("ViewportTexture_pdno7")
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_mou6v")
 size = Vector2(0.5, 0.2)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_stlee"]
 
 [node name="Game2" type="Node3D" unique_id=160411013]
 
@@ -342,10 +345,10 @@ transform = Transform3D(-0.8113482, -0.23082751, 0.53705937, 0.30284336, 0.61985
 light_energy = 0.4
 shadow_enabled = true
 
-[node name="crt2" parent="." unique_id=677841464 instance=ExtResource("1_h21cg")]
+[node name="crt" parent="." unique_id=294025118 instance=ExtResource("1_vb4xb")]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1846179780]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.16230923, 0, 0)
+transform = Transform3D(-1.2239188e-08, 0, 0.28, 0, 0.28, 0, -0.28, 0, -1.2239188e-08, 0.4851818, 0, 0)
 mesh = SubResource("QuadMesh_stlee")
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=1883674649]
@@ -370,45 +373,39 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CameraRig" type="Node3D" parent="." unique_id=877696390]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 0, 0)
 script = ExtResource("4_4nubl")
 
 [node name="Camera3D" type="Camera3D" parent="CameraRig" unique_id=589656840]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.4842887, 0, 0)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
-[node name="vcr2" parent="." unique_id=869876599 instance=ExtResource("5_mou6v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6892925, -0.872199, 0)
+[node name="vcr" parent="." unique_id=138207506 instance=ExtResource("6_vb4xb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.29418772, -0.8952763, 0)
 
-[node name="Area3D" type="Area3D" parent="vcr2" unique_id=1538084766]
+[node name="Area3D" type="Area3D" parent="vcr" unique_id=1538084766]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0156797, 0, -0.5981986)
 script = ExtResource("6_8usey")
 
-[node name="RWND_Collision" type="CollisionShape3D" parent="vcr2/Area3D" unique_id=1061814145]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0218554, 0.031152308, -0.54311854)
+[node name="RWND_Collision" type="CollisionShape3D" parent="vcr/Area3D" unique_id=1061814145]
 shape = SubResource("BoxShape3D_stlee")
 
-[node name="Area3D2" type="Area3D" parent="vcr2" unique_id=2059078539]
-
-[node name="Pause_Collision" type="CollisionShape3D" parent="vcr2/Area3D2" unique_id=257793111]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0218554, 0.031152308, -0.69842815)
-shape = SubResource("BoxShape3D_stlee")
-
-[node name="Area3D3" type="Area3D" parent="vcr2" unique_id=1758046242]
+[node name="Area3D3" type="Area3D" parent="vcr" unique_id=1758046242]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.039629, 0, -0.8574429)
 script = ExtResource("6_pdno7")
 
-[node name="FFWD_Collision" type="CollisionShape3D" parent="vcr2/Area3D3" unique_id=622308190]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0218554, 0.031152308, -0.88255334)
+[node name="FFWD_Collision" type="CollisionShape3D" parent="vcr/Area3D3" unique_id=622308190]
 shape = SubResource("BoxShape3D_stlee")
 
-[node name="SubViewport" type="SubViewport" parent="vcr2" unique_id=1184693860]
+[node name="SubViewport" type="SubViewport" parent="vcr" unique_id=1184693860]
 size = Vector2i(72, 25)
 
-[node name="Label" type="Label" parent="vcr2/SubViewport" unique_id=1355929966]
+[node name="Label" type="Label" parent="vcr/SubViewport" unique_id=1355929966]
 offset_right = 40.0
 offset_bottom = 23.0
 text = "1:00/6:00"
+script = ExtResource("9_vb4xb")
 
-[node name="ColorRect" type="ColorRect" parent="vcr2/SubViewport" unique_id=570367552]
+[node name="ColorRect" type="ColorRect" parent="vcr/SubViewport" unique_id=570367552]
 material = SubResource("ShaderMaterial_28sfj")
 anchors_preset = 15
 anchor_right = 1.0
@@ -416,6 +413,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="vcr2" unique_id=69560323]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="vcr" unique_id=69560323]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.0584252, 0, -0.21649063)
 mesh = SubResource("QuadMesh_67aof")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=870004513]
+transform = Transform3D(5.0050526, 0, 0, 0, 1, 0, 0, 0, 14.607365, 0, -1.1813612, 0)
+mesh = SubResource("PlaneMesh_stlee")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=2066597982]
+transform = Transform3D(-6.6104394e-07, 1, 0, -15.122923, -4.3711392e-08, 0, 0, 0, 10.905906, -0.5618125, -1.1813612, 0)
+mesh = SubResource("PlaneMesh_stlee")

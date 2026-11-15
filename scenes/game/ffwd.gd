@@ -14,12 +14,11 @@ func _ready() -> void:
 	mouse_exited.connect(_on_mouse_exited)
 
 func _process(_delta: float) -> void:
-	if mouseIsHovering && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+	if mouseIsHovering && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not is_equal_approx(GlobalVars.current_time, GlobalVars.end_time):
 		was_forward = true
 		$"../../SubViewport/ColorRect".material.set_shader_parameter("roll_speed", 64)
 		if GlobalVars.current_time + GlobalVars.time_step <= GlobalVars.end_time:
 			GlobalVars.current_time += GlobalVars.time_step
-		print("Moving Time Forward: " + str(GlobalVars.current_time))
 	elif was_forward:
 		was_forward = false
 		$"../../SubViewport/ColorRect".material.set_shader_parameter("roll_speed", 8)

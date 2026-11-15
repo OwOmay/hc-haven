@@ -1,7 +1,7 @@
 extends Node3D
 
 @export var tilt_strength := 2
-@export var max_tilt_degree := 10
+@export var max_tilt_degree := 15
 
 var current_tilt := Vector2.ZERO
 
