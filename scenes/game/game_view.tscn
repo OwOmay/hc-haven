@@ -42,9 +42,9 @@ size = Vector2(4, 3)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_stlee"]
 shader = ExtResource("3_mou6v")
 shader_parameter/overlay = true
-shader_parameter/scanlines_opacity = 0.0530000025175
-shader_parameter/scanlines_width = 0.0930000044175
-shader_parameter/grille_opacity = 0.322000015295
+shader_parameter/scanlines_opacity = 0.0
+shader_parameter/scanlines_width = 0.0
+shader_parameter/grille_opacity = 0.0
 shader_parameter/resolution = Vector2(320, 240)
 shader_parameter/pixelate = true
 shader_parameter/roll = true
