@@ -10,11 +10,10 @@ func _on_mouse_exited() -> void:
 	mouseIsHovering = false;
 
 func _ready() -> void:
-	# Connect signals via code (or use the Node dock in the Godot editor)
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if mouseIsHovering && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		was_forward = true
 		$"../../SubViewport/ColorRect".material.set_shader_parameter("roll_speed", 64)

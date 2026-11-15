@@ -39,7 +39,7 @@ func _transitionScreen(x, y):
 		position.x = 1
 	
 	if y < 0:
-		position.y = 479
+		position.y = 470
 	elif y > 0:
 		position.y = 1
 		
@@ -88,8 +88,6 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	
-	
-	
 	if position.x < 0:
 		WorldStateHandler.gameStateMachine.transition_to_String("Screen_Change_Left").transition_to_String("In_Game")
 	if position.x > 640:
@@ -100,5 +98,5 @@ func _physics_process(delta: float) -> void:
 		WorldStateHandler.gameStateMachine.transition_to_String("Screen_Change_Down").transition_to_String("In_Game")
 
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
+func _on_area_2d_body_entered(_body: Node2D) -> void:
 	print("i'm corrupted oh no")

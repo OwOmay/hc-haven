@@ -1,0 +1,20 @@
+@tool
+extends Node
+
+@export var tilemap: TileMapLayer
+
+@export_tool_button("generate rooms")
+var gen = generate_rooms
+
+func gen2():
+	print("hi")
+
+func generate_rooms():
+	add_child(Node.new())
+	for x in range(0, 5):
+		for y in range(0, 5):
+			var node = Node2D.new()
+			node.name = str(x) + "_" + str(y)
+			node.position = Vector2(640 * x, 480 * y)
+			$"..".add_child(node)
+			node.add_child(tilemap.duplicate())
