@@ -89,6 +89,7 @@ shape = SubResource("RectangleShape2D_c6soh")
 
 [node name="RigidBody2D" type="RigidBody2D" parent="Rooms/0_0" unique_id=802120613]
 position = Vector2(320, -16)
+collision_layer = 0
 can_sleep = false
 script = ExtResource("7_2a8rs")
 item_name = "Key"
@@ -362,6 +363,7 @@ max_time = 180.0
 [node name="RigidBody2D" type="RigidBody2D" parent="Rooms/2_2" unique_id=1763003594]
 z_index = 1
 position = Vector2(249, 190)
+collision_layer = 0
 can_sleep = false
 script = ExtResource("7_2a8rs")
 item_name = "Key"
