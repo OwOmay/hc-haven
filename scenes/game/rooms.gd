@@ -1,7 +1,7 @@
 extends Node2D
 
 func _change_room() -> void:
-	position = GlobalVars.screen_coord * Vector2(640, 480)
+	position = -GlobalVars.screen_coord * Vector2(640, 480) - Vector2(0, 480)
 
 func _ready() -> void:
 	WorldStateHandler.gameStateMachine.on_transition_to_String("Screen_Change_Left", _change_room)

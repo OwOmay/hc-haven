@@ -1,6 +1,7 @@
 extends Area3D
 
 var mouseIsHovering: bool = false
+var was_rewinding := false
 
 func _on_mouse_entered() -> void:
 	mouseIsHovering = true;
@@ -15,7 +16,12 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if mouseIsHovering && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		if GlobalVars.current_time + GlobalVars.time_step >= GlobalVars.end_time:
+		was_rewinding = true
+		$"../../SubViewport/ColorRect".material.set_shader_parameter("roll_speed", -64)
+		if GlobalVars.current_time - GlobalVars.time_step >= GlobalVars.start_time:
 			GlobalVars.current_time -= GlobalVars.time_step
 		print("Moving Time Backward: " + str(GlobalVars.current_time))
+	elif was_rewinding:
+		was_rewinding = false
+		$"../../SubViewport/ColorRect".material.set_shader_parameter("roll_speed", 8)
 	

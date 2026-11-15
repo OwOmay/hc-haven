@@ -34,16 +34,15 @@ func _transitionScreen(x, y):
 		GlobalVars.screen_coord.y = GlobalVars.game_screens_height
 	
 	if x < 0:
-		position.x = 640
+		position.x = 639
 	elif x > 0:
-		position.x = 0
+		position.x = 1
 	
 	if y < 0:
-		position.y = 480
+		position.y = 479
 	elif y > 0:
-		position.y = 0
-	
-	WorldStateHandler.gameStateMachine.transition_to_String("In_Game")
+		position.y = 1
+		
 	print("Transitioned screens by: " + str(x) + ", " + str(y) + " to: " + str(GlobalVars.screen_coord.x) + ", " + str(GlobalVars.screen_coord.y))
 
 func _ready():
@@ -92,13 +91,13 @@ func _physics_process(delta: float) -> void:
 	
 	
 	if position.x < 0:
-		WorldStateHandler.gameStateMachine.transition_to_String("Screen_Change_Left")
+		WorldStateHandler.gameStateMachine.transition_to_String("Screen_Change_Left").transition_to_String("In_Game")
 	if position.x > 640:
-		WorldStateHandler.gameStateMachine.transition_to_String("Screen_Change_Right")
+		WorldStateHandler.gameStateMachine.transition_to_String("Screen_Change_Right").transition_to_String("In_Game")
 	if position.y < 0:
-		WorldStateHandler.gameStateMachine.transition_to_String("Screen_Change_Up")
+		WorldStateHandler.gameStateMachine.transition_to_String("Screen_Change_Up").transition_to_String("In_Game")
 	if position.y > 480:
-		WorldStateHandler.gameStateMachine.transition_to_String("Screen_Change_Down")
+		WorldStateHandler.gameStateMachine.transition_to_String("Screen_Change_Down").transition_to_String("In_Game")
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
