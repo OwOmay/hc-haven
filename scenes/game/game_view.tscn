@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://duiuci0gdwuac" path="res://assets/crt.glb" id="1_vb4xb"]
 [ext_resource type="PackedScene" uid="uid://s6nwu0o0b20f" path="res://scenes/game/game.tscn" id="2_h21cg"]
 [ext_resource type="Script" uid="uid://xh416tvaxfo2" path="res://scenes/game/Video_Handler.gd" id="3_28sfj"]
+[ext_resource type="VideoStream" uid="uid://bo0j487xsnc3w" path="res://assets/Videos/boot.ogv" id="3_hh0oa"]
 [ext_resource type="Shader" uid="uid://ddqhugcwuxwof" path="res://assets/crt.gdshader" id="3_mou6v"]
 [ext_resource type="Script" uid="uid://cf8ayss7w3gkm" path="res://scenes/game/camera_rig.gd" id="4_4nubl"]
 [ext_resource type="Script" uid="uid://dulqy2hpytwee" path="res://scenes/game/rwnd.gd" id="6_8usey"]
@@ -364,8 +365,12 @@ size_2d_override_stretch = true
 [node name="Game" parent="SubViewport" unique_id=830499620 instance=ExtResource("2_h21cg")]
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="SubViewport" unique_id=768047262]
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("3_hh0oa")
 autoplay = true
 script = ExtResource("3_28sfj")
 
