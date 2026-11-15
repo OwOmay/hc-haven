@@ -27,10 +27,10 @@ func _disable() -> void:
 		child.process_mode = Node.PROCESS_MODE_DISABLED
 
 func _process(_delta: float) -> void:
-	previous_shown = collision_enabled
+	previous_shown = visible
 	if floorf(GlobalVars.current_time) <= max_time and ceilf(GlobalVars.current_time) >= min_time:
 		if get_index() > 0:
-			if get_parent().get_child(get_index() - 1).collision_enabled:
+			if get_parent().get_child(get_index() - 1).visible:
 				return
 		_enable()
 		var space_state := get_world_2d().direct_space_state
