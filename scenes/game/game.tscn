@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://7morp4kto6qo" path="res://assets/keyhole.png" id="6_bdhmt"]
 [ext_resource type="Script" uid="uid://buv15cgu8elg6" path="res://scenes/game/item.gd" id="7_2a8rs"]
 [ext_resource type="Texture2D" uid="uid://dfimlusgicov" path="res://assets/key.png" id="7_87uf6"]
+[ext_resource type="FontFile" uid="uid://dohuail428wwy" path="res://assets/VCR_OSD.ttf" id="11_kp23o"]
+[ext_resource type="Script" uid="uid://dvsqagq6h1ok7" path="res://scenes/game/label.gd" id="12_5jirj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_stlee"]
 size = Vector2(32, 128)
@@ -86,7 +88,6 @@ collision_mask = 4
 shape = SubResource("RectangleShape2D_c6soh")
 
 [node name="RigidBody2D" type="RigidBody2D" parent="Rooms/0_0" unique_id=802120613]
-z_index = 1
 position = Vector2(320, -16)
 can_sleep = false
 script = ExtResource("7_2a8rs")
@@ -533,3 +534,24 @@ script = ExtResource("4_lfrn8")
 
 [node name="Player" parent="." unique_id=1515075836 instance=ExtResource("1_sul5r")]
 position = Vector2(96, 416)
+
+[node name="Label" type="Label" parent="." unique_id=1459757341]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 277.0
+offset_top = 384.0
+offset_right = 363.0
+offset_bottom = 407.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("11_kp23o")
+theme_override_font_sizes/font_size = 21
+text = "KEY GET"
+script = ExtResource("12_5jirj")
