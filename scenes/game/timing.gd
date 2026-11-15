@@ -29,6 +29,9 @@ func _disable() -> void:
 func _process(_delta: float) -> void:
 	previous_shown = visible
 	if floorf(GlobalVars.current_time) <= max_time and ceilf(GlobalVars.current_time) >= min_time:
+		if get_index() > 0:
+			if get_parent().get_child(get_index() - 1).visible:
+				return
 		_enable()
 		var space_state = get_world_2d().direct_space_state
 		var query = PhysicsShapeQueryParameters2D.new()
