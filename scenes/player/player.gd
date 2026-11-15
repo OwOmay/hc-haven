@@ -15,6 +15,8 @@ extends CharacterBody2D
 @export var coyote_time := 0.2
 @export var buffer_time := 0.05
 
+var inventory = []
+
 var temp_coyote := 0.0
 var temp_buffer := 0.0
 var has_stopped_jump := false
@@ -50,6 +52,8 @@ func _ready():
 	WorldStateHandler.gameStateMachine.on_transition_to_String("Screen_Change_Right", _transitionScreen.bind(1, 0))
 	WorldStateHandler.gameStateMachine.on_transition_to_String("Screen_Change_Up", _transitionScreen.bind(0, -1))
 	WorldStateHandler.gameStateMachine.on_transition_to_String("Screen_Change_Down", _transitionScreen.bind(0, 1))
+	
+	GlobalVars.player = self
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -85,7 +89,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, direction * max_speed, acceleration)
 	else:
 		velocity.x = move_toward(velocity.x, 0, decceleration)
-
+	
 	move_and_slide()
 	
 	if position.x < 0:

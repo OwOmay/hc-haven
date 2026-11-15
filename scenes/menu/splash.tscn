@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://bs4x53l3k3g2s"]
 
 [ext_resource type="Script" uid="uid://bp8fch22so6w7" path="res://scenes/menu/splash.gd" id="1_gisqt"]
-[ext_resource type="Texture2D" uid="uid://bo81ef88jiqqg" path="res://assets/Untitled design (2).png" id="2_qt77y"]
 
 [node name="Splash" type="Control" unique_id=504848400]
 layout_mode = 3
@@ -15,14 +14,3 @@ offset_bottom = 153.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gisqt")
-
-[node name="Node2D" type="Node2D" parent="." unique_id=169818509]
-
-[node name="StaticBody2D6" type="StaticBody2D" parent="Node2D" unique_id=1575181337]
-modulate = Color(0.601223, 0.60122293, 0.60122305, 1)
-position = Vector2(-873, 10)
-scale = Vector2(0.501, 0.5)
-
-[node name="Sprite2D" type="Sprite2D" parent="Node2D/StaticBody2D6" unique_id=479348759]
-position = Vector2(398.10278, -8.53265)
-texture = ExtResource("2_qt77y")

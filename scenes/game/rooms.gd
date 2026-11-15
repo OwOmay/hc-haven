@@ -1,5 +1,10 @@
 extends Node2D
 
+signal revert
+
+func _revert() -> void:
+	GlobalVars.current_time = GlobalVars.current_time - GlobalVars.time_mod
+
 func _change_room() -> void:
 	position = -GlobalVars.screen_coord * Vector2(640, 480)
 
@@ -8,6 +13,8 @@ func _ready() -> void:
 	WorldStateHandler.gameStateMachine.on_transition_to_String("Screen_Change_Right", call_deferred.bind("_change_room"))
 	WorldStateHandler.gameStateMachine.on_transition_to_String("Screen_Change_Up", call_deferred.bind("_change_room"))
 	WorldStateHandler.gameStateMachine.on_transition_to_String("Screen_Change_Down", call_deferred.bind("_change_room"))
+	
+	revert.connect(_revert)
 	
 	for i in range (0, GlobalVars.game_screens_width):
 		for j in range (0, GlobalVars.game_screens_height):
