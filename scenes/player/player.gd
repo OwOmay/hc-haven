@@ -25,15 +25,15 @@ func _transitionScreen(x, y):
 	GlobalVars.screen_coord.x += x
 	GlobalVars.screen_coord.y += y
 	
-	if GlobalVars.screen_coord.x >= GlobalVars.game_screens_width:
-		GlobalVars.screen_coord.x = 0
-	elif GlobalVars.screen_coord.x < 0:
-		GlobalVars.screen_coord.x = GlobalVars.game_screens_width - 1
-		
-	if GlobalVars.screen_coord.y >= GlobalVars.game_screens_height:
-		GlobalVars.screen_coord.y = 0
-	elif GlobalVars.screen_coord.y < 0:
-		GlobalVars.screen_coord.y = GlobalVars.game_screens_height - 1
+	#if GlobalVars.screen_coord.x >= GlobalVars.game_screens_width:
+		#GlobalVars.screen_coord.x = 0
+	#elif GlobalVars.screen_coord.x < 0:
+		#GlobalVars.screen_coord.x = GlobalVars.game_screens_width - 1
+		#
+	#if GlobalVars.screen_coord.y >= GlobalVars.game_screens_height:
+		#GlobalVars.screen_coord.y = 0
+	#elif GlobalVars.screen_coord.y < 0:
+		#GlobalVars.screen_coord.y = GlobalVars.game_screens_height - 1
 	
 	if x < 0:
 		position.x = 639

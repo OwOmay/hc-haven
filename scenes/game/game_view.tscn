@@ -8,7 +8,9 @@
 [ext_resource type="Script" uid="uid://dulqy2hpytwee" path="res://scenes/game/rwnd.gd" id="6_8usey"]
 [ext_resource type="Script" uid="uid://n3csa7pq5iov" path="res://scenes/game/ffwd.gd" id="6_pdno7"]
 [ext_resource type="PackedScene" uid="uid://chm347hqpaihu" path="res://assets/vcr.glb" id="6_vb4xb"]
+[ext_resource type="FontFile" uid="uid://dohuail428wwy" path="res://assets/VCR_OSD.ttf" id="9_cg74x"]
 [ext_resource type="Script" uid="uid://d2yfhmhqkhlv1" path="res://scenes/game/vcrlabel.gd" id="9_vb4xb"]
+[ext_resource type="Texture2D" uid="uid://c1wfhwub8caah" path="res://assets/sign.png" id="11_4upq2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7h61r"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -39,9 +41,9 @@ size = Vector2(4, 3)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_stlee"]
 shader = ExtResource("3_mou6v")
 shader_parameter/overlay = true
-shader_parameter/scanlines_opacity = 0.4
-shader_parameter/scanlines_width = 0.25
-shader_parameter/grille_opacity = 0.3
+shader_parameter/scanlines_opacity = 0.0530000025175
+shader_parameter/scanlines_width = 0.0930000044175
+shader_parameter/grille_opacity = 0.322000015295
 shader_parameter/resolution = Vector2(320, 240)
 shader_parameter/pixelate = true
 shader_parameter/roll = true
@@ -53,7 +55,7 @@ shader_parameter/noise_opacity = 0.4
 shader_parameter/noise_speed = 5.0
 shader_parameter/static_noise_intensity = 0.06
 shader_parameter/aberration = 0.03
-shader_parameter/brightness = 3.71
+shader_parameter/brightness = 1.4
 shader_parameter/discolor = true
 shader_parameter/warp_amount = 1.0
 shader_parameter/clip_warp = false
@@ -351,7 +353,7 @@ shadow_enabled = true
 [node name="crt" parent="." unique_id=294025118 instance=ExtResource("1_vb4xb")]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1846179780]
-transform = Transform3D(-1.2239188e-08, 0, 0.28, 0, 0.28, 0, -0.28, 0, -1.2239188e-08, 0.4851818, 0, 0)
+transform = Transform3D(-1.2239188e-08, 0, 0.28, 0, 0.28, 0, -0.28, 0, -1.2239188e-08, 0.48505068, 0, 0)
 mesh = SubResource("QuadMesh_stlee")
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=1883674649]
@@ -400,12 +402,27 @@ script = ExtResource("6_pdno7")
 shape = SubResource("BoxShape3D_stlee")
 
 [node name="SubViewport" type="SubViewport" parent="vcr" unique_id=1184693860]
-size = Vector2i(72, 25)
+size = Vector2i(288, 100)
+size_2d_override = Vector2i(72, 25)
+size_2d_override_stretch = true
 
 [node name="Label" type="Label" parent="vcr/SubViewport" unique_id=1355929966]
-offset_right = 40.0
-offset_bottom = 23.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.5
+offset_top = -11.5
+offset_right = 34.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("9_cg74x")
+theme_override_font_sizes/font_size = 13
 text = "1:00/6:00"
+horizontal_alignment = 1
+vertical_alignment = 1
 script = ExtResource("9_vb4xb")
 
 [node name="ColorRect" type="ColorRect" parent="vcr/SubViewport" unique_id=570367552]
@@ -433,3 +450,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5156776, 0, 0)
 omni_range = 0.969
 omni_attenuation = -1.828
 omni_shadow_mode = 0
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1997266498]
+transform = Transform3D(-1.2088032e-08, 0, 0.2, 0, 0.25537214, 0, -0.27654195, 0, -8.742278e-09, 0.7604032, -0.8912469, 0.49981332)
+texture = ExtResource("11_4upq2")

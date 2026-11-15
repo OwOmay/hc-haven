@@ -14,7 +14,7 @@ func _unhandled_input(event):
 		current_tilt.x = clamp(current_tilt.x, -max_tilt, max_tilt)
 		current_tilt.y = clamp(current_tilt.y, -max_tilt, max_tilt)
 
-func _process(delta):
+func _process(_delta):
 	rotation.z = current_tilt.x
 	rotation.y = -current_tilt.y
 # Cal
