@@ -376,4 +376,4 @@ collision_enabled = false
 script = ExtResource("4_lfrn8")
 
 [node name="Player" parent="." unique_id=1515075836 instance=ExtResource("1_sul5r")]
-position = Vector2(96, 432)
+position = Vector2(96, 416)
