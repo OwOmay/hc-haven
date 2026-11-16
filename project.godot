@@ -26,7 +26,6 @@ GlobalAudio="*uid://cjb5p164f43tv"
 window/size/viewport_width=640
 window/size/viewport_height=480
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
 
 [editor_plugins]
 
