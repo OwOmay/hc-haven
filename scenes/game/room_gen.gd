@@ -7,8 +7,8 @@ extends Node
 var gen = generate_rooms
 
 func generate_rooms():
-	for x in range(0, 5):
-		for y in range(0, 5):
+	for x in 5:
+		for y in 5:
 			var node := Node2D.new()
 			node.name = str(x) + "_" + str(y)
 			node.position = Vector2(640 * x, 480 * y)

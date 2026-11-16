@@ -18,8 +18,8 @@ func _ready() -> void:
 	
 	revert.connect(_revert)
 	
-	#for i in range (0, GlobalVars.game_screens_width):
-		#for j in range (0, GlobalVars.game_screens_height):
+	#for i in GlobalVars.game_screens_width:
+		#for j in GlobalVars.game_screens_height:
 			#Room.new(i, j, 5, [0, 50, 100, 150, 200])
 #
 #class Room extends Node:
@@ -43,13 +43,13 @@ func _ready() -> void:
 				#personal_tile_map.collision_enabled = true
 		#
 		#
-		#for i in range(0, different_time_states):
+		#for i in different_time_states:
 			#time_states.push_back(WorldStateHandler.State.new("Time_"+str(i)))
 			#
 		#state_machine = WorldStateHandler.stateMachine.new(time_states)
 	#
 	#func _process(delta: float) -> void:
-		#for i in range(0, state_transition_times.size()-1):
+		#for i in state_transition_times.size()-1:
 			#if GlobalVars.current_time > state_transition_times[i] && GlobalVars.current_time < state_transition_times[i+1]:
 				#if self.last_set_time_state != i:
 					#self.last_set_time_state = i

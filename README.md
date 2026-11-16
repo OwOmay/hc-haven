@@ -10,6 +10,12 @@
 
 **Time-shifting** - LMB on the CRT Buttons
 
+## Editor Controls
+
+**Wall** - LMB
+
+**Air** - RMB
+
 ## Story
 
 Among the isles of the 1990's, you envision a retro world through the views of a lackluster security guard, breasted upon a off-shift, and tired of the day's wain.
