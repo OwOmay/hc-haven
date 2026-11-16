@@ -14,7 +14,7 @@ func _ready() -> void:
 	mouse_exited.connect(_on_mouse_exited)
 
 func _process(delta: float) -> void:
-	if (mouseIsHovering && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and GlobalVars.current_time < GlobalVars.unlocked_end - 0.01) and not GlobalVars.cancel_move:
+	if (((mouseIsHovering && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) or Input.is_action_pressed("ffwd")) and GlobalVars.current_time < GlobalVars.unlocked_end - 0.01) and not GlobalVars.cancel_move:
 		GlobalVars.time_mod = 1
 		was_forward = true
 		$"../../SubViewport/ColorRect".material.set_shader_parameter("roll_speed", 64)

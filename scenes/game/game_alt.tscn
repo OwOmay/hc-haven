@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://toycj2fnfpml"]
+
+[ext_resource type="PackedScene" uid="uid://s6nwu0o0b20f" path="res://scenes/game/game.tscn" id="1_xbpwi"]
+[ext_resource type="Script" uid="uid://rhr5hpamcrg6" path="res://scenes/game/rwnd_alt.gd" id="2_7l7y1"]
+[ext_resource type="Script" uid="uid://cdtwagc8nkr0d" path="res://scenes/game/ffwd_alt.gd" id="3_8erw5"]
+
+[node name="GameAlt" type="Node2D" unique_id=815837400]
+
+[node name="Game" parent="." unique_id=830499620 instance=ExtResource("1_xbpwi")]
+
+[node name="Rwnd" type="Node" parent="." unique_id=1659211597]
+script = ExtResource("2_7l7y1")
+
+[node name="Ffwd" type="Node" parent="." unique_id=143853253]
+script = ExtResource("3_8erw5")
