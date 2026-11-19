@@ -1,0 +1,642 @@
+[gd_scene format=4 uid="uid://0n3lw2xx0j2h"]
+
+[ext_resource type="PackedScene" uid="uid://duiuci0gdwuac" path="res://assets/crt.glb" id="1_vb4xb"]
+[ext_resource type="PackedScene" uid="uid://s6nwu0o0b20f" path="res://scenes/game/game.tscn" id="2_hh0oa"]
+[ext_resource type="Script" uid="uid://xh416tvaxfo2" path="res://scenes/game/Video_Handler.gd" id="3_28sfj"]
+[ext_resource type="VideoStream" uid="uid://bo0j487xsnc3w" path="res://assets/Videos/boot.ogv" id="3_hh0oa"]
+[ext_resource type="Shader" uid="uid://ddqhugcwuxwof" path="res://assets/crt.gdshader" id="3_mou6v"]
+[ext_resource type="Script" uid="uid://cf8ayss7w3gkm" path="res://scenes/game/camera_rig.gd" id="4_4nubl"]
+[ext_resource type="Script" uid="uid://dulqy2hpytwee" path="res://scenes/game/rwnd.gd" id="6_8usey"]
+[ext_resource type="Script" uid="uid://n3csa7pq5iov" path="res://scenes/game/ffwd.gd" id="6_pdno7"]
+[ext_resource type="PackedScene" uid="uid://chm347hqpaihu" path="res://assets/vcr.glb" id="6_vb4xb"]
+[ext_resource type="FontFile" uid="uid://dohuail428wwy" path="res://assets/VCR_OSD.ttf" id="9_cg74x"]
+[ext_resource type="Script" uid="uid://d2yfhmhqkhlv1" path="res://scenes/game/vcrlabel.gd" id="9_vb4xb"]
+[ext_resource type="Texture2D" uid="uid://c1wfhwub8caah" path="res://assets/sign.png" id="11_4upq2"]
+[ext_resource type="PackedScene" uid="uid://bnvbx8euicj4c" path="res://assets/VHS, CRTV, VCR/television-02 (1)/source/television_2.fbx" id="13_1sj6n"]
+[ext_resource type="Texture2D" uid="uid://cv2fl55et6pmt" path="res://assets/VHS, CRTV, VCR/retro_vhs_tape_game_ready (3)_0.png" id="13_ki5sy"]
+[ext_resource type="Texture2D" uid="uid://c3d0ui01eopay" path="res://assets/VHS, CRTV, VCR/retro_vhs_tape_game_ready (3)_1.png" id="14_3ne1j"]
+[ext_resource type="PackedScene" uid="uid://bdfwr0fyfc7f6" path="res://assets/VHS, CRTV, VCR/retro_vhs_tape_game_ready (3).glb" id="15_akqal"]
+[ext_resource type="Script" uid="uid://cwkamankfccfd" path="res://scenes/game/Selector.gd" id="16_3ne1j"]
+[ext_resource type="AudioStream" uid="uid://cd6r76ggn03hw" path="res://assets/SFX/InsertSFX.mp3" id="17_akqal"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7h61r"]
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(0, 0, 0, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Sky" id="Sky_0sr1o"]
+sky_material = SubResource("ProceduralSkyMaterial_7h61r")
+
+[sub_resource type="Environment" id="Environment_kelw5"]
+background_mode = 2
+sky = SubResource("Sky_0sr1o")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_kelw5"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0sr1o"]
+resource_local_to_scene = true
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_kelw5")
+
+[sub_resource type="QuadMesh" id="QuadMesh_stlee"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_0sr1o")
+size = Vector2(4, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_stlee"]
+shader = ExtResource("3_mou6v")
+shader_parameter/overlay = false
+shader_parameter/scanlines_opacity = 0.0
+shader_parameter/scanlines_width = 0.25
+shader_parameter/grille_opacity = 0.3
+shader_parameter/resolution = Vector2(320, 240)
+shader_parameter/pixelate = true
+shader_parameter/roll = true
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_size = 15.0
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/aberration = 0.03
+shader_parameter/brightness = 1.35
+shader_parameter/discolor = false
+shader_parameter/warp_amount = 1.0
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_stlee"]
+size = Vector3(0.1, 0.29033202, 0.24593505)
+
+[sub_resource type="Shader" id="Shader_28sfj"]
+code = "/*
+Shader from Godot Shaders - the free shader library.
+godotshaders.com/shader/VHS-and-CRT-monitor-effect
+
+This shader is under CC0 license. Feel free to use, improve and 
+change this shader according to your needs and consider sharing 
+the modified result to godotshaders.com.
+*/
+
+shader_type canvas_item;
+
+//*** IMPORTANT! ***/ 
+// - If you are using this shader to affect the node it is applied to set 'overlay' to false (unchecked in the instepctor).
+// - If you are using this shader as an overlay, and want the shader to affect the nodes below in the Scene hierarchy,
+//   set 'overlay' to true (checked in the inspector).
+// On Mac there is potentially a bug causing this to not work properly. If that is the case and you want to use the shader as an overlay
+// change all \"overlay ? SCREEN_TEXTURE : TEXTURE\" to only \"SCREEN_TEXTURE\" on lines 129-140, and \"vec2 uv = overlay ? warp(SCREEN_UV) : warp(UV);\"
+// to \"vec2 uv = warp(SCREEN_UV);\" on line 98.
+
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+
+uniform bool overlay = false;
+
+uniform float scanlines_opacity : hint_range(0.0, 1.0) = 0.4;
+uniform float scanlines_width : hint_range(0.0, 0.5) = 0.25;
+uniform float grille_opacity : hint_range(0.0, 1.0) = 0.3;
+uniform vec2 resolution = vec2(640.0, 480.0); // Set the number of rows and columns the texture will be divided in. Scanlines and grille will make a square based on these values
+
+uniform bool pixelate = true; // Fill each square (\"pixel\") with a sampled color, creating a pixel look and a more accurate representation of how a CRT monitor would work.
+
+uniform bool roll = true;
+uniform float roll_speed = 8.0; // Positive values are down, negative are up
+uniform float roll_size : hint_range(0.0, 100.0) = 15.0;
+uniform float roll_variation : hint_range(0.1, 5.0) = 1.8; // This valie is not an exact science. You have to play around with the value to find a look you like. How this works is explained in the code below.
+uniform float distort_intensity : hint_range(0.0, 0.2) = 0.05; // The distortion created by the rolling effect.
+
+uniform float noise_opacity : hint_range(0.0, 1.0) = 0.4;
+uniform float noise_speed = 5.0; // There is a movement in the noise pattern that can be hard to see first. This sets the speed of that movement.
+
+uniform float static_noise_intensity : hint_range(0.0, 1.0) = 0.06;
+
+uniform float aberration : hint_range(-1.0, 1.0) = 0.03; // Chromatic aberration, a distortion on each color channel.
+uniform float brightness = 1.4; // When adding scanline gaps and grille the image can get very dark. Brightness tries to compensate for that.
+uniform bool discolor = true; // Add a discolor effect simulating a VHS
+
+uniform float warp_amount :hint_range(0.0, 5.0) = 1.0; // Warp the texture edges simulating the curved glass of a CRT monitor or old TV.
+uniform bool clip_warp = false;
+
+uniform float vignette_intensity = 0.4; // Size of the vignette, how far towards the middle it should go.
+uniform float vignette_opacity : hint_range(0.0, 1.0) = 0.5;
+
+// Used by the noise functin to generate a pseudo random value between 0.0 and 1.0
+vec2 random(vec2 uv){
+    uv = vec2( dot(uv, vec2(127.1,311.7) ),
+               dot(uv, vec2(269.5,183.3) ) );
+    return -1.0 + 2.0 * fract(sin(uv) * 43758.5453123);
+}
+
+// Generate a Perlin noise used by the distortion effects
+float noise(vec2 uv) {
+    vec2 uv_index = floor(uv);
+    vec2 uv_fract = fract(uv);
+
+    vec2 blur = smoothstep(0.0, 1.0, uv_fract);
+
+    return mix( mix( dot( random(uv_index + vec2(0.0,0.0) ), uv_fract - vec2(0.0,0.0) ),
+                     dot( random(uv_index + vec2(1.0,0.0) ), uv_fract - vec2(1.0,0.0) ), blur.x),
+                mix( dot( random(uv_index + vec2(0.0,1.0) ), uv_fract - vec2(0.0,1.0) ),
+                     dot( random(uv_index + vec2(1.0,1.0) ), uv_fract - vec2(1.0,1.0) ), blur.x), blur.y) * 0.5 + 0.5;
+}
+
+// Takes in the UV and warps the edges, creating the spherized effect
+vec2 warp(vec2 uv){
+	vec2 delta = uv - 0.5;
+	float delta2 = dot(delta.xy, delta.xy);
+	float delta4 = delta2 * delta2;
+	float delta_offset = delta4 * warp_amount;
+	
+	return uv + delta * delta_offset;
+}
+
+// Adds a black border to hide stretched pixel created by the warp effect
+float border (vec2 uv){
+	float radius = min(warp_amount, 0.08);
+	radius = max(min(min(abs(radius * 2.0), abs(1.0)), abs(1.0)), 1e-5);
+	vec2 abs_uv = abs(uv * 2.0 - 1.0) - vec2(1.0, 1.0) + radius;
+	float dist = length(max(vec2(0.0), abs_uv)) / radius;
+	float square = smoothstep(0.96, 1.0, dist);
+	return clamp(1.0 - square, 0.0, 1.0);
+}
+
+// Adds a vignette shadow to the edges of the image
+float vignette(vec2 uv){
+	uv *= 1.0 - uv.xy;
+	float vignette = uv.x * uv.y * 15.0;
+	return pow(vignette, vignette_intensity * vignette_opacity);
+}
+
+void fragment()
+{
+	vec2 uv = overlay ? warp(SCREEN_UV) : warp(UV); // Warp the uv. uv will be used in most cases instead of UV to keep the warping
+	vec2 text_uv = uv;
+	vec2 roll_uv = vec2(0.0);
+	float time = roll ? TIME : 0.0;
+	
+
+	// Pixelate the texture based on the given resolution.
+	if (pixelate)
+	{
+		text_uv = ceil(uv * resolution) / resolution;
+	}
+	
+	// Create the rolling effect. We need roll_line a bit later to make the noise effect.
+	// That is why this runs if roll is true OR noise_opacity is over 0.
+	float roll_line = 0.0;
+	if (roll || noise_opacity > 0.0)
+	{
+		// Create the areas/lines where the texture will be distorted.
+		roll_line = smoothstep(0.3, 0.9, sin(uv.y * roll_size - (time * roll_speed) ) );
+		// Create more lines of a different size and apply to the first set of lines. This creates a bit of variation.
+		roll_line *= roll_line * smoothstep(0.3, 0.9, sin(uv.y * roll_size * roll_variation - (time * roll_speed * roll_variation) ) );
+		// Distort the UV where where the lines are
+		roll_uv = vec2(( roll_line * distort_intensity * (1.-UV.x)), 0.0);
+	}
+	
+	vec4 text;
+	if (roll)
+	{
+		// If roll is true distort the texture with roll_uv. The texture is split up into RGB to 
+		// make some chromatic aberration. We apply the aberration to the red and green channels accorging to the aberration parameter
+		// and intensify it a bit in the roll distortion.
+		text.r = texture(SCREEN_TEXTURE, text_uv + roll_uv * 0.8 + vec2(aberration, 0.0) * .1).r;
+		text.g = texture(SCREEN_TEXTURE, text_uv + roll_uv * 1.2 - vec2(aberration, 0.0) * .1 ).g;
+		text.b = texture(SCREEN_TEXTURE, text_uv + roll_uv).b;
+		text.a = 1.0;
+	}
+	else
+	{
+		// If roll is false only apply the aberration without any distorion. The aberration values are very small so the .1 is only 
+		// to make the slider in the Inspector less sensitive.
+		text.r = texture(SCREEN_TEXTURE, text_uv + vec2(aberration, 0.0) * .1).r;
+		text.g = texture(SCREEN_TEXTURE, text_uv - vec2(aberration, 0.0) * .1).g;
+		text.b = texture(SCREEN_TEXTURE, text_uv).b;
+		text.a = 1.0;
+	}
+	
+	float r = text.r;
+	float g = text.g;
+	float b = text.b;
+	
+	uv = warp(UV);
+	
+	// CRT monitors don't have pixels but groups of red, green and blue dots or lines, called grille. We isolate the texture's color channels 
+	// and divide it up in 3 offsetted lines to show the red, green and blue colors next to each other, with a small black gap between.
+	if (grille_opacity > 0.0){
+		
+		float g_r = smoothstep(0.85, 0.95, abs(sin(uv.x * (resolution.x * 3.14159265))));
+		r = mix(r, r * g_r, grille_opacity);
+		
+		float g_g = smoothstep(0.85, 0.95, abs(sin(1.05 + uv.x * (resolution.x * 3.14159265))));
+		g = mix(g, g * g_g, grille_opacity);
+		
+		float b_b = smoothstep(0.85, 0.95, abs(sin(2.1 + uv.x * (resolution.x * 3.14159265))));
+		b = mix(b, b * b_b, grille_opacity);
+		
+	}
+	
+	// Apply the grille to the texture's color channels and apply Brightness. Since the grille and the scanlines (below) make the image very dark you
+	// can compensate by increasing the brightness.
+	text.r = clamp(r * brightness, 0.0, 1.0);
+	text.g = clamp(g * brightness, 0.0, 1.0);
+	text.b = clamp(b * brightness, 0.0, 1.0);
+	
+	// Scanlines are the horizontal lines that make up the image on a CRT monitor. 
+	// Here we are actual setting the black gap between each line, which I guess is not the right definition of the word, but you get the idea  
+	float scanlines = 0.5;
+	if (scanlines_opacity > 0.0)
+	{
+		// Same technique as above, create lines with sine and applying it to the texture. Smoothstep to allow setting the line size.
+		scanlines = smoothstep(scanlines_width, scanlines_width + 0.5, abs(sin(uv.y * (resolution.y * 3.14159265))));
+		text.rgb = mix(text.rgb, text.rgb * vec3(scanlines), scanlines_opacity);
+	}
+	
+	// Apply the banded noise.
+	if (noise_opacity > 0.0)
+	{
+		// Generate a noise pattern that is very stretched horizontally, and animate it with noise_speed
+		float noise = smoothstep(0.4, 0.5, noise(uv * vec2(2.0, 200.0) + vec2(10.0, (TIME * (noise_speed))) ) );
+		
+		// We use roll_line (set above) to define how big the noise should be vertically (multiplying cuts off all black parts).
+		// We also add in some basic noise with random() to break up the noise pattern above. The noise is sized according to 
+		// the resolution value set in the inspector. If you don't like this look you can 
+		// change \"ceil(uv * resolution) / resolution\" to only \"uv\" to make it less pixelated. Or multiply resolution with som value
+		// greater than 1.0 to make them smaller.
+		roll_line *= noise * scanlines * clamp(random((ceil(uv * resolution) / resolution) + vec2(TIME * 0.8, 0.0)).x + 0.8, 0.0, 1.0);
+		// Add it to the texture based on noise_opacity
+		text.rgb = clamp(mix(text.rgb, text.rgb + roll_line, noise_opacity), vec3(0.0), vec3(1.0));
+	}
+	
+	// Apply static noise by generating it over the whole screen in the same way as above
+	if (static_noise_intensity > 0.0)
+	{
+		text.rgb += clamp(random((ceil(uv * resolution) / resolution) + fract(TIME)).x, 0.0, 1.0) * static_noise_intensity;
+	}
+	
+	// Apply a black border to hide imperfections caused by the warping.
+	// Also apply the vignette
+	text.rgb *= border(uv);
+	text.rgb *= vignette(uv);
+	// Hides the black border and make that area transparent. Good if you want to add the the texture on top an image of a TV or monitor.
+	if (clip_warp)
+	{
+		text.a = border(uv);
+	}
+	
+	// Apply discoloration to get a VHS look (lower saturation and higher contrast)
+	// You can play with the values below or expose them in the Inspector.
+	float saturation = 0.5;
+	float contrast = 1.2;
+	if (discolor)
+	{
+		// Saturation
+		vec3 greyscale = vec3(text.r + text.g + text.b) / 3.;
+		text.rgb = mix(text.rgb, greyscale, saturation);
+		
+		// Contrast
+		float midpoint = pow(0.5, 2.2);
+		text.rgb = (text.rgb - vec3(midpoint)) * contrast + midpoint;
+	}
+	
+	COLOR = text;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_28sfj"]
+shader = SubResource("Shader_28sfj")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.0430000020425
+shader_parameter/scanlines_width = 0.02400000114
+shader_parameter/grille_opacity = 0.0870000041325
+shader_parameter/resolution = Vector2(320, 240)
+shader_parameter/pixelate = true
+shader_parameter/roll = true
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_size = 0.0
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.0
+shader_parameter/noise_opacity = 0.0
+shader_parameter/noise_speed = 2.18
+shader_parameter/static_noise_intensity = 0.1410000066975
+shader_parameter/aberration = 0.05300005001750008
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 0.0
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.6
+shader_parameter/vignette_opacity = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o7a2e"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_4upq2"]
+viewport_path = NodePath("vcr/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vb4xb"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_4upq2")
+emission_enabled = true
+emission_energy_multiplier = 0.57
+emission_texture = SubResource("ViewportTexture_4upq2")
+
+[sub_resource type="QuadMesh" id="QuadMesh_67aof"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_vb4xb")
+size = Vector2(0.5, 0.2)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_stlee"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hh0oa"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s5lwa"]
+size = Vector3(2.1127167, 1.1737671, 5.2500916)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pibg7"]
+resource_name = "material"
+cull_mode = 2
+albedo_texture = ExtResource("13_ki5sy")
+metallic_texture = ExtResource("14_3ne1j")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("14_3ne1j")
+roughness_texture_channel = 1
+metadata/_gltf_primary_texture_coord = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_liedn"]
+_surfaces = [{
+"aabb": AABB(-0.33250684, -1.3816235, -2.4799862, 0.6650137, 2.763247, 4.9599724),
+"format": 34896613377,
+"index_count": 228,
+"index_data": PackedByteArray("CAABAAIAAwACAAEACAACAAMAAwABAAQACQAEAAEACQADAAQACAAKAAEACQABAAoACAADAAwACQAMAAMAFQAIAAwAFgAMAAkAFQAMABYAFwAJAAoAFgAJABcAGAAKAAgAGAAIABUAFwAKABgAGQAVABYAGgAWABcAGQAWABoAGwAXABgAGgAXABsAHAAYABUAHAAVABkAGwAYABwAHQAZABoAHgAaABsAHQAaAB4AHwAbABwAHgAbAB8AIAAcABkAIAAZAB0AHwAcACAADQAdAB4ADgAeAB8ADQAeAA4ADwAfACAADgAfAA8ACwAgAB0ACwAdAA0ADwAgAAsAAAANAA4ABgAOAA8AAAAOAAYABwAPAAsABgAPAAcABQALAA0ABQANAAAABwALAAUAIQAAAAYAIgAGAAcAIQAGACIAIwAHAAUAIgAHACMAJAAFAAAAJAAAACEAIwAFACQAEAAhACIAJQAiACMAEAAiACUAJgAjACQAJQAjACYAJwAkACEAJwAhABAAJgAkACcAEQAnABAAFAAlACYAEgAmACcAFAAmABIAJwARABIAJQAUABMAEwAQACUAEgATABQAEQAQABMAEgARABMA"),
+"lods": [0.01182793, PackedByteArray("CAABAAIAAwACAAEACAACAAMAAwABAAQACQAEAAEACQADAAQACAAKAAEACQABAAoACwAKAAgACQAKAAsACAADAAwACQAMAAMADQAIAAwACwAIAA0ADgAMAAkADQAMAA4ADwAJAAsADgAJAA8ABQALAA0AAAANAA4ABQANAAAABgAOAA8AAAAOAAYABwAPAAsABwALAAUABgAPAAcABQAAABAAEAAAAAYAEQAFABAAEgAHAAUAEgAFABEABgAHABIAEQAQABMAEgARABMAEAAGABQAFAAGABIAEwAQABQAEgATABQA"), 0.8737153, PackedByteArray("CAABAAIAAwACAAEACAACAAMAAwABAAQACQAEAAEACQADAAQACAAKAAEACQABAAoACAADAAYACQAGAAMAAAAIAAYABgAJAAcABwAAAAYACQAKAAUABwAJAAUABQAKAAgABwAFAAAABQAIAAAA"), 1.310573, PackedByteArray("AAABAAIAAwACAAEAAAACAAMAAwABAAQAAAAFAAEAAAADAAYABwABAAUABwAFAAAABwAEAAEABwAAAAYABwADAAQABwAGAAMA")],
+"name": "material",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 40,
+"vertex_data": PackedByteArray("///LANP+AAAAAP////8AAP///////wAA/////wAAAAAAAP//AAAAAAAAywDT/gAA///LACsBAAAAAMsAKwEAAP//twT//wAAAAC3BAAAAAAAALcE//8AAAAAYQE5/wAA//+3BAAAAAD//2EBOf8AAP//YQHFAAAAAABhAcUAAAD//xcA4f0AAAAAAABe/QAAAAAAAKACAAD//wAAXv0AAP//AACgAgAA///MA/L/AAD//8wDDAAAAAAAzAMMAAAAAADMA/L/AAD//+kCy/8AAP//6QIzAAAAAADpAjMAAAAAAOkCy/8AAP//GAKN/wAA//8YAnEAAAAAABgCcQAAAAAAGAKN/wAA//9bAF/+AAD//1sAnwEAAAAAWwCfAQAAAABbAF/+AAD//xcAHQIAAAAAFwAdAgAAAAAXAOH9AAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_cock5"]
+resource_name = "Sketchfab_Scene_Object_0"
+_surfaces = [{
+"aabb": AABB(-0.33250684, -1.3816235, -2.4799862, 0.6650137, 2.763247, 4.9599724),
+"attribute_data": PackedByteArray("Hxd3plgBpv4fF6b+WAF3pvXp+6Qu1Cr99ekq/S7U+6S1u1gBfNHFo3zRWAG1u8WjLtRYAfXpSqL16VgBLtRKoo1bFgJYAcWjjVsHo1gBWAG8uBYCh17Fo7y4B6OHXlgBHxf7p1gB+6f16X+mKlpYAVm3WAFZt8WjWAG5ph8XuaYu1H+mLtQ9pfXpPaX16UUCLtRFAvXpXKEu1Fyh9emwodVbAwPNW7AC1VsaolhbSKNYW9UBKlrFowS5AwMEuRqih7hIo4e41QEfF/unWAH7p/Xpf6Yu1H+m9elFAi7U8gEu1EUC9enyAfXp8gEu1KIBLtTyAfXpogH16aIBLtSiAS7UPaX16Yil9ek9pS7UiKUu1Iil9enYpfXpiKUu1NilLtTYpfXpLKb16dilLtQspi7ULKb16SymLtRcofXpXKEu1LChLtSwofXpAKL16bChLtQAoi7UAKL16QCiWAG5ph8XA6cfF7mmWAEDp1gBA6cfF1SnHxcDp1gBVKdYAVSnHxenpx8XVKdYAaenWAGnpx8Xp6fNW26itVu+orVbYAIYW32jGFugAc5apaPOWnkBflq9o35aYAH8uG6i/LiwAuO4vqLjuGACRrh9o0a4oAH8t6Wj/Ld5Aay3vaOst2AB"),
+"format": 34896613399,
+"index_count": 228,
+"index_data": PackedByteArray("MgABAAIAMgAzAAEANAAFAAYANAA1AAUACAAJAAoACAALAAkANgA3ADgANgA5ADcAOgA7ADwAOgA9ADsAPgAMAD8APgAOAAwABwAiAAQABwAhACIAQABBAEIAQABDAEEARABFAEYARABHAEUASABJAEoASABLAEkATAAaAE0ATAAgABoATgAnAE8ATgBQACcAUQBSAFMAUQBUAFIAVQANAFYAVQAPAA0AAwAfAAAAAwAeAB8AVwBYAFkAVwBaAFgAWwBcAF0AWwBeAFwAXwBgAGEAXwBiAGAAYwAYAGQAYwAZABgAJAAlACMAJAAmACUAZQAqACgAKAApAGUAKQBmAGUAKQBnAGYAZwASAGYAZwAQABIAEAArABIAEAAsACsALABoACsALABpAGgAaQBqAGgAaQBrAGoAawBsAGoAawBtAGwAbQAtAGwAbQAbAC0AGwARAC0AGwATABEAbgAvAC4ALgBvAG4AbwBwAG4AbwBxAHAAcQAWAHAAcQAUABYAFAAwABYAFAAxADAAMQByADAAMQBzAHIAcwB0AHIAcwB1AHQAdQB2AHQAdQB3AHYAdwAdAHYAdwAcAB0AHAAVAB0AHAAXABUA"),
+"lods": [0.01182793, PackedByteArray("GAABAAIAGAAZAAEAHgAZABgAHgAYAB8AAwAeAB8AAwAfAAAAGgAFAAYAGgAgAAUAIQAgABoAIQAaACIABwAhACIABwAiAAQACAAJAAoACAALAAkAIwAOACQADgAMACQAJAAlACMAJAAmACUAJgAnACUAJgAPACcADwANACcAKAApACoAKQASACoAKQAQABIAEAArABIAEAAsACsALAAtACsALAAbAC0AGwARAC0AGwATABEALgAWAC8ALgAUABYAFAAwABYAFAAxADAAMQAcADAAHAAdADAAHAAVAB0AHAAXABUA"), 0.8737153, PackedByteArray("GAABAAIAGAAZAAEAAwAZABgAAwAYAAAAGgAFAAYAGgAHAAUABwAaAAQACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAAbABIAGwARABIAGwATABEAFAAcABYAHAAdABYAHAAVAB0AHAAXABUA"), 1.310573, PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA")],
+"material": SubResource("StandardMaterial3D_pibg7"),
+"name": "material",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 120,
+"vertex_data": PackedByteArray("///LANP+/1sAAP/////+f/////////5/AADLANP+/1sAAMsAKwEAAP////8AAAAAAAD//wAAAAD//8sAKwEAAP////8AAAAAAAD/////AAAAAP//AAAAAP///////wAAAADLACsB/yv//8sA0/7/U///ywArAf8rAADLANP+/1P//8sA0/6qKv////8AAKoq///LACsBqyr///////+qKgAAywArAaoqAAD/////qioAAMsA0/6rKgAA//8AAKoq//+3BP///3sAALcE////ewAAtwQAAAAA//+3BP//qioAALcEAACqKgAAtwT//6oqAABhATn//1v//2EBOf//W///twQAAAAA//9hAcUAAAAAAGEBxQAAAP//AACgAv8/AAAAAKAC/z///wAAXv3/PwAAAABe/f8///8XAOH9/0P//wAAXv2jKv//FwDh/awq//8AAKACsSr//2EBxQCqKv//YQE5/6oq//+3BAAAqioAAAAAoAKjKgAAAABe/bEqAABhATn/qioAAGEBxQCqKv//twT///5/AAC3BP///n8AALcEAAAAAP//twQAAAAA//8AAKAC/zsAABcAHQL/OwAAAACgAv87//8XAB0C/zv//xcAHQL/MwAAWwCfAf8zAAAXAB0C/zP//1sAnwH/M///WwCfAf8rAABbAJ8B/yv//2EBxQAAAAAAGAJxAAAAAABhAcUAAAD//xgCcQAAAP//GAJxAAAAAADpAjMAAAAAABgCcQAAAP//6QIzAAAA///pAjMAAAAAAMwDDAAAAAAA6QIzAAAA///MAwwAAAD//8wDDAAAAAAAzAMMAAAAAAAAAF79/0P//wAAXv3/QwAAFwDh/f9DAAAXAOH9/0v//1sAX/7/S///FwDh/f9LAABbAF/+/0sAAFsAX/7/U///WwBf/v9TAABhATn//2P//xgCjf//Y///YQE5//9jAAAYAo3//2MAABgCjf//a///6QLL//9r//8YAo3//2sAAOkCy///awAA6QLL//9z///MA/L//3P//+kCy///cwAAzAPy//9zAADMA/L//3v//8wD8v//e///FwAdAqwq//9bAJ8BqSr//1sAX/6qKv//GAJxAKoq//8YAo3/qir//+kCMwCqKv//6QLL/6oq///MAwwAqir//8wD8v+qKgAAFwDh/awqAAAXAB0CrCoAAFsAX/6pKgAAWwCfAaoqAAAYAo3/qioAABgCcQCqKgAA6QLL/6oqAADpAjMAqioAAMwD8v+qKgAAzAMMAKoqAAD/f/9/////f///AAD/fxmp////f////3///xmp////f/+//3//v/9//7//f/+/AAD/fwAA/38AAP9/AAD/f6mqVFWqqlRVqapUVaqqVFVVVaqqVFWqqlVVqqpUVaqqAAD/fwAA/3/+hf//qqpVVVRVqapUVamqAAD/fwAA/3/+hf//Gan//xmp//8AAP9/AAD/fwAA/38AAP9/AAD/f66qXVWoqlJVpapMVaqqVVWqqlVVqqpVVVBVoapZVbKqVFWpqlRVqar/f////3////9/////f///AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/f7qh//+6of//uqH//7qh//+jmf//o5n//6OZ//+jmf//iJD//4iQ//+IkP//iJD///6F///+hf//AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/3+oqlJVqqpWVaqqVVWqqlVVqapUVamqVFWpqlRVqqpVVaqqVVVWVayqVlWsqlRVqKpUVamqVFWpqlVVqqpVVaqqVVWqqlRVqapUVamq")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_liedn")
+
+[sub_resource type="Animation" id="Animation_3ne1j"]
+resource_name = "Insert tape"
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RigidBody3D3")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 1.2909179, -0.8026939, -0.2769882, 0.46666667, 1, 0.5583651, -0.8067663, -0.2769882)
+tracks/1/type = "scale_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RigidBody3D3")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 1, 1, 1, 0.4, 1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_akqal"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RigidBody3D3")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 1.2909179, -0.8026939, -0.2769882)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h3675"]
+_data = {
+&"Insert tape": SubResource("Animation_3ne1j"),
+&"RESET": SubResource("Animation_akqal")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q4i1q"]
+
+[node name="Game2" type="Node3D" unique_id=160411013]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1819021917]
+environment = SubResource("Environment_kelw5")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1047863552]
+transform = Transform3D(-0.8113482, -0.23082751, 0.53705937, 0.30284336, 0.61985373, 0.72392493, -0.50000006, 0.75, -0.43301266, 0.43872216, -0.98722744, -0.93325526)
+visible = false
+light_energy = 0.4
+shadow_enabled = true
+
+[node name="crt" parent="." unique_id=294025118 instance=ExtResource("1_vb4xb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0009543896, 0.0019844174, -0.000813961)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1846179780]
+transform = Transform3D(-1.2082265e-08, 0, 0.27641, 0, 0.27641, 0, -0.27641, 0, -1.2082265e-08, 0.48505068, 0, 0)
+mesh = SubResource("QuadMesh_stlee")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1883674649]
+size = Vector2i(1280, 960)
+size_2d_override = Vector2i(640, 480)
+size_2d_override_stretch = true
+
+[node name="Game" parent="SubViewport" unique_id=830499620 instance=ExtResource("2_hh0oa")]
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="SubViewport" unique_id=768047262]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("3_hh0oa")
+autoplay = true
+script = ExtResource("3_28sfj")
+
+[node name="ColorRect" type="ColorRect" parent="SubViewport" unique_id=1670514115]
+material = SubResource("ShaderMaterial_stlee")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CameraRig" type="Node3D" parent="." unique_id=877696390]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 0, 0)
+script = ExtResource("4_4nubl")
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig" unique_id=589656840]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.0015366077, 0.0028916895, -0.0009916425)
+
+[node name="Grab Ray" type="RayCast3D" parent="CameraRig/Camera3D" unique_id=1837608679]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 3.0628703, 0, 0, 0)
+target_position = Vector3(0, 0, -3)
+
+[node name="Grab Target" type="Node3D" parent="CameraRig/Camera3D/Grab Ray" unique_id=441252657]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.32649115, 0.01, -0.168, -0.29384205)
+
+[node name="vcr" parent="." unique_id=138207506 instance=ExtResource("6_vb4xb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2970286, -0.8911823, 0.0014196932)
+
+[node name="Area3D" type="Area3D" parent="vcr" unique_id=1538084766]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0156797, 0, -0.5981986)
+script = ExtResource("6_8usey")
+
+[node name="RWND_Collision" type="CollisionShape3D" parent="vcr/Area3D" unique_id=1061814145]
+shape = SubResource("BoxShape3D_stlee")
+
+[node name="Area3D3" type="Area3D" parent="vcr" unique_id=1758046242]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.039629, 0, -0.8574429)
+script = ExtResource("6_pdno7")
+
+[node name="FFWD_Collision" type="CollisionShape3D" parent="vcr/Area3D3" unique_id=622308190]
+shape = SubResource("BoxShape3D_stlee")
+
+[node name="SubViewport" type="SubViewport" parent="vcr" unique_id=1184693860]
+size = Vector2i(288, 100)
+size_2d_override = Vector2i(72, 25)
+size_2d_override_stretch = true
+
+[node name="Label" type="Label" parent="vcr/SubViewport" unique_id=1355929966]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.5
+offset_top = -11.5
+offset_right = 34.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("9_cg74x")
+theme_override_font_sizes/font_size = 13
+text = "1:00/6:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("9_vb4xb")
+
+[node name="ColorRect" type="ColorRect" parent="vcr/SubViewport" unique_id=570367552]
+visible = false
+material = SubResource("ShaderMaterial_28sfj")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Area3D2" type="Area3D" parent="vcr" unique_id=301330932]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.0584252, 0, -0.21649063)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="vcr/Area3D2" unique_id=1548204884]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+shape = SubResource("BoxShape3D_o7a2e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="vcr" unique_id=69560323]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.0584252, 0, -0.21649063)
+mesh = SubResource("QuadMesh_67aof")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=870004513]
+transform = Transform3D(5.0050526, 0, 0, 0, 1, 0, 0, 0, 14.607365, 0, -1.1813612, 0)
+visible = false
+mesh = SubResource("PlaneMesh_stlee")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=2066597982]
+transform = Transform3D(-6.585088e-07, 0.996165, 0, -15.064926, -4.3543757e-08, 0, 0, 0, 10.864081, 0.28583336, -1.8908578, -0.04660839)
+mesh = SubResource("PlaneMesh_stlee")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=863124631]
+transform = Transform3D(0.021363923, -0.38211924, 0.9238661, -0.047062516, 0.9226682, 0.38271213, -0.9986635, -0.051655687, 0.0017283178, 2.092, 0.653, -0.025)
+light_color = Color(1, 0.7510033, 0.7025531, 1)
+light_specular = 0.0
+shadow_enabled = true
+shadow_bias = 0.0
+distance_fade_enabled = true
+distance_fade_begin = 0.0
+distance_fade_shadow = 0.0
+distance_fade_length = 0.9
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=466073608]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2695204, -0.74623907, 0)
+light_color = Color(0.09717309, 0.04555072, 0, 1)
+omni_range = 23.449
+omni_attenuation = -1.828
+omni_shadow_mode = 0
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1997266498]
+transform = Transform3D(-1.2088032e-08, 0, 0.2, 0, 0.25537214, 0, -0.27654195, 0, -8.742278e-09, 0.7604032, -0.8912469, 0.49981332)
+texture = ExtResource("11_4upq2")
+
+[node name="RigidBody3D2" type="RigidBody3D" parent="." unique_id=622879680]
+transform = Transform3D(-0.99998456, 0.00555909, 0, -0.00555909, -0.99998456, 0, 0, 0, 1, 0.83688796, -0.058926553, -0.6005093)
+physics_material_override = SubResource("PhysicsMaterial_hh0oa")
+gravity_scale = 0.0
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="RigidBody3D2" unique_id=185253380]
+transform = Transform3D(0.11000001, 0, 0, 0, 0.110000014, 0, 0, 0, 0.11000001, -0.05783999, -4.9702823e-05, 0.0043864846)
+shape = SubResource("BoxShape3D_s5lwa")
+debug_color = Color(0, 0.6, 0.69803923, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D2" unique_id=501638422]
+transform = Transform3D(-0.00044053025, 0.11999919, 0, -0.11999919, -0.00044053025, 0, 0, 0, 0.12, 0, 0, 0)
+mesh = SubResource("ArrayMesh_cock5")
+
+[node name="Sketchfab_Scene" parent="RigidBody3D2" unique_id=1399956042 instance=ExtResource("15_akqal")]
+transform = Transform3D(-0.068327606, 0, 2.9992218, 0, 3, 0, -2.9992218, 0, -0.068327606, -0.65605044, -0.35258818, -0.07855472)
+visible = false
+
+[node name="RigidBody3D3" type="RigidBody3D" parent="." unique_id=1569488534]
+transform = Transform3D(-0.99998456, 0.00555909, 0, -0.00555909, -0.99998456, 0, 0, 0, 1, -0.98595256, -0.17586666, -0.2769882)
+physics_material_override = SubResource("PhysicsMaterial_hh0oa")
+gravity_scale = 0.0
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="RigidBody3D3" unique_id=1812114745]
+transform = Transform3D(0.11000001, 0, 0, 0, 0.110000014, 0, 0, 0, 0.11000001, -0.05783999, -4.9702823e-05, 0.0043864846)
+shape = SubResource("BoxShape3D_s5lwa")
+debug_color = Color(0, 0.6, 0.69803923, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D3" unique_id=757419584]
+transform = Transform3D(-0.00044053025, 0.11999919, 0, -0.11999919, -0.00044053025, 0, 0, 0, 0.12, 0, 0, 0)
+mesh = SubResource("ArrayMesh_cock5")
+
+[node name="Sketchfab_Scene" parent="RigidBody3D3" unique_id=544007156 instance=ExtResource("15_akqal")]
+transform = Transform3D(-0.068327606, 0, 2.9992218, 0, 3, 0, -2.9992218, 0, -0.068327606, -0.65605044, -0.35258818, -0.07855472)
+visible = false
+
+[node name="Area3D4" type="Area3D" parent="." unique_id=1290396098]
+transform = Transform3D(0.5, 0, -9.313226e-10, 0, 0.5, 0, 9.313226e-10, 0, 0.5, 1.0050842, -0.9282068, 0.020566046)
+script = ExtResource("16_3ne1j")
+
+[node name="InsertSFX" type="AudioStreamPlayer" parent="Area3D4" unique_id=2045724994]
+stream = ExtResource("17_akqal")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Area3D4" unique_id=2030337187]
+reset_on_save = false
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_h3675")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D4" unique_id=699228686]
+shape = SubResource("BoxShape3D_q4i1q")
+
+[node name="EntryPoint" type="Marker3D" parent="Area3D4" unique_id=212747116]
+
+[node name="television_2" parent="." unique_id=531487933 instance=ExtResource("13_1sj6n")]
+transform = Transform3D(-0.068327606, 0, 2.9992218, 0, 3, 0, -2.9992218, 0, -0.068327606, 0.18270253, -0.7469965, -0.0016877358)
+visible = false
+
+[connection signal="body_entered" from="Area3D4" to="RigidBody3D2" method="_on_area_3d_4_body_entered"]
