@@ -1,9 +1,18 @@
 extends Node3D
 
-@export var tilt_strength := 2
-@export var max_tilt_degree := 15
+@export var tilt_strength := 2.0
+@export var max_tilt_degree := 25
+@export var grab_force = 10
+@export var release_force = 1.0
+var grab:RigidBody3D
+
 
 var current_tilt := Vector2.ZERO
+
+@onready var camera:Camera3D = $Camera3D
+@onready var grab_ray:RayCast3D = $"Camera3D/Grab Ray"
+@onready var grab_target:Node3D = $"Camera3D/Grab Ray/Grab Target"
+
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -17,4 +26,28 @@ func _unhandled_input(event):
 func _process(_delta):
 	rotation.z = current_tilt.x
 	rotation.y = -current_tilt.y
-# Cal
+func _physics_process(_delta):
+	aim_ray_at_mouse()
+	if Input.is_action_pressed("Grab"):
+		if grab:
+			if grab.get_colliding_bodies().is_empty() or (!grab.get_colliding_bodies().is_empty() and grab.get_colliding_bodies()[0] is RigidBody3D): grab.linear_velocity = grab_force * (grab_target.global_position - grab.global_position)
+			else: release()
+		elif Input.is_action_just_pressed("Grab") and grab_ray.is_colliding() and grab_ray.get_collider() is RigidBody3D:
+			grab = grab_ray.get_collider()
+			await get_tree().create_timer(0.2).timeout
+			if grab:
+				grab.max_contacts_reported = 1
+				grab.contact_monitor = true
+	elif grab: release()
+func release():
+	grab.max_contacts_reported = 0
+	grab.contact_monitor = false
+	grab.linear_velocity *= release_force
+	grab = null
+	
+func aim_ray_at_mouse():
+	var mouse_pos = get_viewport().get_mouse_position()
+	var ray_origin = camera.project_ray_origin(mouse_pos)
+	var ray_direction = camera.project_ray_normal(mouse_pos)
+	
+	grab_target.global_position = ray_origin + ray_direction
