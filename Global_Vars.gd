@@ -12,6 +12,9 @@ var game_screens_height: int = 5
 
 var cancel_move := false
 
-var screen_coord := Vector2.ZERO
+var screen_coord := Vector2i.ZERO
 
 var player: Node
+
+@warning_ignore("unused_signal")
+signal change_screen(x: int, y: int)
