@@ -348,6 +348,13 @@ size = Vector2(0.5, 0.2)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_stlee"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c6soh"]
+albedo_texture = ExtResource("11_4upq2")
+
+[sub_resource type="QuadMesh" id="QuadMesh_r70et"]
+material = SubResource("StandardMaterial3D_c6soh")
+size = Vector2(0.54, 0.24)
+
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hh0oa"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s5lwa"]
@@ -439,7 +446,6 @@ environment = SubResource("Environment_kelw5")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1047863552]
 transform = Transform3D(-0.8113482, -0.23082751, 0.53705937, 0.30284336, 0.61985373, 0.72392493, -0.50000006, 0.75, -0.43301266, 0.43872216, -0.98722744, -0.93325526)
-visible = false
 light_energy = 0.4
 shadow_enabled = true
 
@@ -468,6 +474,7 @@ autoplay = true
 script = ExtResource("3_28sfj")
 
 [node name="ColorRect" type="ColorRect" parent="SubViewport" unique_id=1670514115]
+visible = false
 material = SubResource("ShaderMaterial_stlee")
 anchors_preset = 15
 anchor_right = 1.0
@@ -577,14 +584,20 @@ omni_range = 23.449
 omni_attenuation = -1.828
 omni_shadow_mode = 0
 
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=1209078348]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.7604032, -0.8912469, 0.49981332)
+mesh = SubResource("QuadMesh_r70et")
+
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=1997266498]
 transform = Transform3D(-1.2088032e-08, 0, 0.2, 0, 0.25537214, 0, -0.27654195, 0, -8.742278e-09, 0.7604032, -0.8912469, 0.49981332)
+visible = false
 texture = ExtResource("11_4upq2")
 
 [node name="RigidBody3D2" type="RigidBody3D" parent="." unique_id=622879680]
 transform = Transform3D(-0.99998456, 0.00555909, 0, -0.00555909, -0.99998456, 0, 0, 0, 1, 1.2593853, -0.14862591, -0.28159332)
 physics_material_override = SubResource("PhysicsMaterial_hh0oa")
 gravity_scale = 0.0
+linear_damp = 10.0
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="RigidBody3D2" unique_id=185253380]
 transform = Transform3D(0.11000001, 0, 0, 0, 0.110000014, 0, 0, 0, 0.11000001, 0.0028151274, -0.061603993, 0.0043864846)

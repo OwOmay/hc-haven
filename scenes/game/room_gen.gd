@@ -3,12 +3,12 @@ extends Node
 
 @export var tilemap: TileMapLayer
 
-@export_tool_button("generate rooms")
-var gen = generate_rooms
+@export_tool_button("generate rooms") var gen = generate_rooms
+
 
 func generate_rooms():
-	for x in 5:
-		for y in 5:
+	for x in GlobalVars.game_screens_width:
+		for y in GlobalVars.game_screens_height:
 			var node := Node2D.new()
 			node.name = str(x) + "_" + str(y)
 			node.position = Vector2(640 * x, 480 * y)

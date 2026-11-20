@@ -5,14 +5,17 @@ extends TileMapLayer
 
 var previous_shown := false
 
+
 func _revert() -> void:
 	if previous_shown:
 		_enable()
 	else:
 		_disable()
 
+
 func _ready() -> void:
 	get_parent().get_parent().revert.connect(_revert)
+
 
 func _enable() -> void:
 	show()
@@ -20,11 +23,13 @@ func _enable() -> void:
 	for child in get_children():
 		child.process_mode = Node.PROCESS_MODE_INHERIT
 
+
 func _disable() -> void:
 	hide()
 	collision_enabled = false
 	for child in get_children():
 		child.process_mode = Node.PROCESS_MODE_DISABLED
+
 
 func _process(_delta: float) -> void:
 	previous_shown = visible
@@ -42,10 +47,18 @@ func _process(_delta: float) -> void:
 		query.collision_mask = 1
 		var results = space_state.intersect_shape(query)
 		var cells := [
-			get_cell_tile_data(local_to_map(to_local(GlobalVars.player.global_position) + Vector2(-6, 0))),
-			get_cell_tile_data(local_to_map(to_local(GlobalVars.player.global_position) + Vector2(6, 0))),
-			get_cell_tile_data(local_to_map(to_local(GlobalVars.player.global_position) + Vector2(0, -6))),
-			get_cell_tile_data(local_to_map(to_local(GlobalVars.player.global_position) + Vector2(0, 6)))
+			get_cell_tile_data(
+				local_to_map(to_local(GlobalVars.player.global_position) + Vector2(-6, 0))
+			),
+			get_cell_tile_data(
+				local_to_map(to_local(GlobalVars.player.global_position) + Vector2(6, 0))
+			),
+			get_cell_tile_data(
+				local_to_map(to_local(GlobalVars.player.global_position) + Vector2(0, -6))
+			),
+			get_cell_tile_data(
+				local_to_map(to_local(GlobalVars.player.global_position) + Vector2(0, 6))
+			),
 		]
 		if results.size() > 0:
 			get_parent().get_parent().revert.emit()
