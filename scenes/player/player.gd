@@ -28,14 +28,14 @@ func _transition_screen(x: int, y: int):
 	GlobalVars.screen_coord.y += y
 
 	if x == -1:
-		position.x = 500
+		position.x = 630
 	if x == 1:
-		position.x = 100
+		position.x = 10
 
 	if y == -1:
-		position.y = 400
+		position.y = 470
 	if y == 1:
-		position.y = 100
+		position.y = 10
 
 	can_change_screen = 0.1
 
