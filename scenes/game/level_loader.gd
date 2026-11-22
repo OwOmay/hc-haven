@@ -2,7 +2,8 @@ extends Node2D
 
 @export var level: Level
 
-func _load_level() -> void:
+
+func load_level() -> void:
 	if level:
 		for screen in level.screens:
 			var tilemap := TileMapLayer.new()
@@ -15,5 +16,6 @@ func _load_level() -> void:
 			tilemap.collision_enabled = false
 			add_child(tilemap)
 
+
 func _ready() -> void:
-	_load_level()
+	load_level()
