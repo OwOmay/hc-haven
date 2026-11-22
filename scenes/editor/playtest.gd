@@ -2,12 +2,10 @@ extends Node2D
 
 var is_started := false
 
-
 func _ready() -> void:
 	$Game/Player.process_mode = Node.PROCESS_MODE_DISABLED
 	$"Game/Rooms/0_0".level = EditorData.current_game
-	$"Game/Rooms/0_0".load_level()
-
+	$"Game/Rooms/0_0"._load_level()
 
 func _process(_delta: float) -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not is_started:

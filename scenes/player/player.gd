@@ -20,51 +20,58 @@ var inventory = []
 var temp_coyote := 0.0
 var temp_buffer := 0.0
 var has_stopped_jump := false
-var can_change_screen := 0.0
 
-
-func _transition_screen(x: int, y: int):
+func _transitionScreen(x, y):
 	GlobalVars.screen_coord.x += x
 	GlobalVars.screen_coord.y += y
-
-	if x == -1:
+	
+	#if GlobalVars.screen_coord.x >= GlobalVars.game_screens_width:
+		#GlobalVars.screen_coord.x = 0
+	#elif GlobalVars.screen_coord.x < 0:
+		#GlobalVars.screen_coord.x = GlobalVars.game_screens_width - 1
+		#
+	#if GlobalVars.screen_coord.y >= GlobalVars.game_screens_height:
+		#GlobalVars.screen_coord.y = 0
+	#elif GlobalVars.screen_coord.y < 0:
+		#GlobalVars.screen_coord.y = GlobalVars.game_screens_height - 1
+	
+	if x < 0:
 		position.x = 630
-	if x == 1:
-		position.x = 10
-
-	if y == -1:
+	elif x > 0:
+		position.x = 1
+	
+	if y < 0:
 		position.y = 470
-	if y == 1:
-		position.y = 10
-
-	can_change_screen = 0.1
-
+	elif y > 0:
+		position.y = 1
+		
+	print("Transitioned screens by: " + str(x) + ", " + str(y) + " to: " + str(GlobalVars.screen_coord.x) + ", " + str(GlobalVars.screen_coord.y))
 
 func _ready():
-	GlobalVars.change_screen.connect(_transition_screen)
+	WorldStateHandler.gameStateMachine.on_transition_to_String("Screen_Change_Left", _transitionScreen.bind(-1, 0))
+	WorldStateHandler.gameStateMachine.on_transition_to_String("Screen_Change_Right", _transitionScreen.bind(1, 0))
+	WorldStateHandler.gameStateMachine.on_transition_to_String("Screen_Change_Up", _transitionScreen.bind(0, -1))
+	WorldStateHandler.gameStateMachine.on_transition_to_String("Screen_Change_Down", _transitionScreen.bind(0, 1))
+	
 	GlobalVars.player = self
-
 
 func _process(_delta: float) -> void:
 	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		GlobalVars.cancel_move = false
 
-
 func _physics_process(delta: float) -> void:
-	can_change_screen -= delta
-
 	if not is_on_floor():
 		temp_coyote -= delta
 		if velocity.y < 0:
 			velocity += get_gravity() * delta * up_gravity
 		else:
 			velocity += get_gravity() * delta * down_gravity
-
+	
 	temp_buffer -= delta
-
+	
 	if is_on_floor():
 		temp_coyote = coyote_time
-
+	
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor() or temp_coyote > 0:
 			temp_coyote = 0
@@ -72,11 +79,11 @@ func _physics_process(delta: float) -> void:
 			has_stopped_jump = false
 		else:
 			temp_buffer = buffer_time
-
+	
 	if (is_on_floor() or temp_coyote > 0) and temp_buffer > 0:
 		velocity.y = jump_power
 		has_stopped_jump = false
-
+	
 	if Input.is_action_just_released("jump") and not has_stopped_jump and velocity.y < 0:
 		velocity.y -= velocity.y * 0.9
 		has_stopped_jump = true
@@ -86,20 +93,18 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, direction * max_speed, acceleration)
 	else:
 		velocity.x = move_toward(velocity.x, 0, decceleration)
-
+	
 	move_and_slide()
-
-	var dir := Vector2i.ZERO
-
+	
 	if position.x < 0:
-		dir.x -= 1
+		WorldStateHandler.gameStateMachine.transition_to_String("Screen_Change_Left").transition_to_String("In_Game")
 	if position.x > 640:
-		dir.x += 1
+		WorldStateHandler.gameStateMachine.transition_to_String("Screen_Change_Right").transition_to_String("In_Game")
 	if position.y < 0:
-		dir.y -= 1
+		WorldStateHandler.gameStateMachine.transition_to_String("Screen_Change_Up").transition_to_String("In_Game")
 	if position.y > 480:
-		dir.y += 1
+		WorldStateHandler.gameStateMachine.transition_to_String("Screen_Change_Down").transition_to_String("In_Game")
 
-	if dir.length_squared() != 0 and can_change_screen < 0.0:
-		can_change_screen = false
-		GlobalVars.change_screen.emit(dir.x, dir.y)
+
+func _on_area_2d_body_entered(_body: Node2D) -> void:
+	print("i'm corrupted oh no")

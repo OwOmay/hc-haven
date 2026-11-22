@@ -2,12 +2,8 @@ extends Node
 
 var was_rewinding := false
 
-
 func _process(delta: float) -> void:
-	if (
-		(Input.is_action_pressed("rwnd") and GlobalVars.current_time > GlobalVars.unlocked_start)
-		and not GlobalVars.cancel_move
-	):
+	if (Input.is_action_pressed("rwnd") and GlobalVars.current_time > GlobalVars.unlocked_start) and not GlobalVars.cancel_move:
 		GlobalVars.time_mod = -1
 		was_rewinding = true
 		if GlobalVars.current_time - GlobalVars.time_step * delta >= GlobalVars.unlocked_start:
