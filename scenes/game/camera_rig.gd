@@ -1,7 +1,7 @@
 extends Node3D
 
-@export var tilt_strength := 2.0
-@export var max_tilt_degree := 25
+@export var tilt_strength := 1.0
+@export var max_tilt_degree := 20
 @export var grab_force = 10
 @export var release_force = 1.0
 var grab:RigidBody3D
