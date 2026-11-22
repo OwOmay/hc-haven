@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GlobalVars="*uid://cww46bmcusj6q"
+WorldStateHandler="*uid://cy5vpsge6yooo"
 GlobalAudio="*uid://cjb5p164f43tv"
 EditorData="*uid://bsbvacemnqryb"
 
@@ -29,7 +30,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GDQuest_GDScript_formatter/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
 
 [input]
 
