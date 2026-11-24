@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://6y1qvdirvoyq"]
+
+[ext_resource type="Script" uid="uid://33vkx63c4yfo" path="res://scenes/editor/playtest.gd" id="1_3q2gx"]
+[ext_resource type="Script" uid="uid://bq040xo00kg0o" path="res://scenes/game/level_loader.gd" id="1_k3x2y"]
+[ext_resource type="PackedScene" uid="uid://dsubo7cbkvd8u" path="res://scenes/player/player.tscn" id="1_so1of"]
+[ext_resource type="Script" uid="uid://rhr5hpamcrg6" path="res://scenes/game/rwnd_alt.gd" id="1_yt6id"]
+[ext_resource type="Script" uid="uid://d117k5rw7qieo" path="res://scenes/game/rooms.gd" id="2_cmj46"]
+[ext_resource type="Script" uid="uid://cdtwagc8nkr0d" path="res://scenes/game/ffwd_alt.gd" id="2_so1of"]
+[ext_resource type="FontFile" uid="uid://dohuail428wwy" path="res://assets/VCR_OSD.ttf" id="3_k3x2y"]
+[ext_resource type="Script" uid="uid://d2yfhmhqkhlv1" path="res://scenes/game/vcrlabel.gd" id="4_3q2gx"]
+
+[node name="Playtest" type="Node2D" unique_id=425840995]
+script = ExtResource("1_3q2gx")
+
+[node name="Game" type="Node2D" parent="." unique_id=448367726]
+
+[node name="Rooms" type="Node2D" parent="Game" unique_id=1998282387]
+script = ExtResource("2_cmj46")
+
+[node name="0_0" type="Node2D" parent="Game/Rooms" unique_id=1075374369]
+script = ExtResource("1_k3x2y")
+
+[node name="Player" parent="Game" unique_id=1515075836 instance=ExtResource("1_so1of")]
+
+[node name="Rwnd" type="Node" parent="." unique_id=1210027012]
+script = ExtResource("1_yt6id")
+
+[node name="Ffwd" type="Node" parent="." unique_id=1658666074]
+script = ExtResource("2_so1of")
+
+[node name="Label" type="Label" parent="." unique_id=371518799]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 115.0
+offset_bottom = 27.0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("3_k3x2y")
+theme_override_font_sizes/font_size = 21
+text = "6:00/6:00"
+script = ExtResource("4_3q2gx")

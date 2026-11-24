@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cjb5p164f43tv"]
+
+[ext_resource type="Script" uid="uid://d0nho48ab5hom" path="res://scenes/World/global_audio.gd" id="1_y08qo"]
+[ext_resource type="AudioStream" uid="uid://0iyq5ridp2li" path="res://assets/stop.ogg" id="2_7wvb6"]
+
+[node name="GlobalAudio" type="Node" unique_id=1121630253]
+script = ExtResource("1_y08qo")
+
+[node name="Stop" type="AudioStreamPlayer" parent="." unique_id=204372562]
+stream = ExtResource("2_7wvb6")

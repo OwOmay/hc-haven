@@ -1,0 +1,133 @@
+[gd_scene format=3 uid="uid://btm5hhwwjie1a"]
+
+[ext_resource type="Script" uid="uid://bbxxv2ifs5ank" path="res://scenes/editor/editor.gd" id="1_bc6i7"]
+[ext_resource type="TileSet" uid="uid://daies156i6euj" path="res://assets/tiles/tiles.tres" id="3_5cfe8"]
+
+[node name="Editor" type="Node2D" unique_id=1641508838]
+script = ExtResource("1_bc6i7")
+
+[node name="TileMapLayerNow" type="TileMapLayer" parent="." unique_id=1824720017]
+visible = false
+tile_set = ExtResource("3_5cfe8")
+
+[node name="TileMapLayerPast" type="TileMapLayer" parent="." unique_id=1571151324]
+visible = false
+tile_set = ExtResource("3_5cfe8")
+
+[node name="TileMapLayerFuture" type="TileMapLayer" parent="." unique_id=1805106519]
+visible = false
+tile_set = ExtResource("3_5cfe8")
+
+[node name="TileMapLayerFake" type="TileMapLayer" parent="." unique_id=1892970755]
+tile_set = ExtResource("3_5cfe8")
+
+[node name="Control" type="Control" parent="." unique_id=1075072716]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 143.0
+offset_top = 108.0
+offset_right = 505.0
+offset_bottom = 347.0
+
+[node name="Panel" type="Panel" parent="Control" unique_id=2146930497]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Control/Panel" unique_id=607274112]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Panel/CenterContainer" unique_id=451615412]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control/Panel/CenterContainer/VBoxContainer" unique_id=1118265377]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Panel/CenterContainer/VBoxContainer/HBoxContainer3" unique_id=1430288495]
+layout_mode = 2
+theme_override_constants/outline_size = 0
+text = "Screen Number"
+
+[node name="CurrentScreen" type="HSlider" parent="Control/Panel/CenterContainer/VBoxContainer/HBoxContainer3" unique_id=1434220549]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 0.0
+ticks_on_borders = true
+ticks_position = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Control/Panel/CenterContainer/VBoxContainer" unique_id=283082518]
+layout_mode = 2
+
+[node name="AddScreen" type="Button" parent="Control/Panel/CenterContainer/VBoxContainer/HBoxContainer4" unique_id=324685955]
+layout_mode = 2
+text = "Add Screen"
+
+[node name="RemoveScreen" type="Button" parent="Control/Panel/CenterContainer/VBoxContainer/HBoxContainer4" unique_id=211419854]
+layout_mode = 2
+text = "Remove Screen"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Panel/CenterContainer/VBoxContainer" unique_id=248908100]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Panel/CenterContainer/VBoxContainer/HBoxContainer" unique_id=859941563]
+layout_mode = 2
+text = "Minimum Time"
+
+[node name="MinTime" type="SpinBox" parent="Control/Panel/CenterContainer/VBoxContainer/HBoxContainer" unique_id=1608018760]
+layout_mode = 2
+max_value = 1000.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/Panel/CenterContainer/VBoxContainer" unique_id=1804408393]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Panel/CenterContainer/VBoxContainer/HBoxContainer2" unique_id=333802628]
+layout_mode = 2
+text = "Maximum Time"
+
+[node name="MaxTime" type="SpinBox" parent="Control/Panel/CenterContainer/VBoxContainer/HBoxContainer2" unique_id=297334374]
+layout_mode = 2
+max_value = 1000.0
+
+[node name="Playtest" type="Button" parent="Control/Panel/CenterContainer/VBoxContainer" unique_id=468429394]
+layout_mode = 2
+text = "Playtest"
+
+[node name="Save" type="Button" parent="Control/Panel/CenterContainer/VBoxContainer" unique_id=1623263062]
+layout_mode = 2
+text = "Save"
+
+[node name="Load" type="Button" parent="Control/Panel/CenterContainer/VBoxContainer" unique_id=1036906536]
+layout_mode = 2
+text = "Load"
+
+[node name="Save" type="FileDialog" parent="." unique_id=248339765]
+oversampling_override = 1.0
+access = 2
+filters = PackedStringArray("*.tres,*.res;Godot Resource")
+
+[node name="Load" type="FileDialog" parent="." unique_id=66192705]
+oversampling_override = 1.0
+title = "Open a File"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.tres,*.res;Godot Resource")
+
+[connection signal="value_changed" from="Control/Panel/CenterContainer/VBoxContainer/HBoxContainer3/CurrentScreen" to="." method="_on_current_screen_value_changed"]
+[connection signal="pressed" from="Control/Panel/CenterContainer/VBoxContainer/HBoxContainer4/AddScreen" to="." method="_on_add_screen_pressed"]
+[connection signal="pressed" from="Control/Panel/CenterContainer/VBoxContainer/HBoxContainer4/RemoveScreen" to="." method="_on_remove_screen_pressed"]
+[connection signal="value_changed" from="Control/Panel/CenterContainer/VBoxContainer/HBoxContainer/MinTime" to="." method="_on_min_time_value_changed"]
+[connection signal="value_changed" from="Control/Panel/CenterContainer/VBoxContainer/HBoxContainer2/MaxTime" to="." method="_on_max_time_value_changed"]
+[connection signal="pressed" from="Control/Panel/CenterContainer/VBoxContainer/Playtest" to="." method="_on_playtest_pressed"]
+[connection signal="pressed" from="Control/Panel/CenterContainer/VBoxContainer/Save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="Control/Panel/CenterContainer/VBoxContainer/Load" to="." method="_on_load_pressed"]
+[connection signal="file_selected" from="Save" to="." method="_on_save_file_selected"]
+[connection signal="file_selected" from="Load" to="." method="_on_load_file_selected"]
