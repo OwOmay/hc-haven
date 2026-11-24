@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bs4x53l3k3g2s"]
+
+[ext_resource type="Script" uid="uid://bp8fch22so6w7" path="res://scenes/menu/splash.gd" id="1_gisqt"]
+
+[node name="Splash" type="Control" unique_id=504848400]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1047.0
+offset_top = 153.0
+offset_right = 1047.0
+offset_bottom = 153.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gisqt")
