@@ -916,7 +916,6 @@ shape = SubResource("BoxShape3D_mrysl")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=1853937270]
 transform = Transform3D(-1.6863208e-08, 0.83977765, 0, 1.6863208e-08, 1.6045509e-15, -0.24966323, -0.38578522, -3.6707846e-08, -1.0913126e-08, 1.0393575, -0.14592825, -0.057952493)
-visible = false
 sorting_offset = -9.63
 mesh = SubResource("PlaneMesh_oot76")
 surface_material_override/0 = SubResource("StandardMaterial3D_mrysl")
