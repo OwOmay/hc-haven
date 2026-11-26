@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dsubo7cbkvd8u"]
 
 [ext_resource type="Script" uid="uid://jb2q8v7f1ar6" path="res://scenes/player/player.gd" id="1_8afob"]
-[ext_resource type="Texture2D" uid="uid://bub6hep5uwse4" path="res://assets/Joline.png" id="2_dovo2"]
+[ext_resource type="Texture2D" uid="uid://d4enicg0jefqx" path="res://assets/Videos/New Piskel-1.png 2.png" id="2_dovo2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gmlin"]
 size = Vector2(28, 30)
@@ -17,7 +17,10 @@ script = ExtResource("1_8afob")
 shape = SubResource("RectangleShape2D_gmlin")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=539098632]
-scale = Vector2(0.5, 0.5)
+modulate = Color(0.13465017, 0.2537578, 0.29150093, 1)
+self_modulate = Color(0.6480781, 0.64807814, 0.6480781, 1)
+position = Vector2(0, -5)
+scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_dovo2")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1261216071]

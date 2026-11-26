@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://divjk5vb3x1i2"
+path="res://.godot/imported/Re-Framed - 11:25:26, 11.38 AM.wav-c1e4747d4b03fa1f1cef05410b1ba1a7.sample"
+
+[deps]
+
+source_file="res://data/Re-Framed - 11:25:26, 11.38 AM.wav"
+dest_files=["res://.godot/imported/Re-Framed - 11:25:26, 11.38 AM.wav-c1e4747d4b03fa1f1cef05410b1ba1a7.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -1,10 +1,27 @@
 [gd_scene format=3 uid="uid://cjb5p164f43tv"]
 
 [ext_resource type="Script" uid="uid://d0nho48ab5hom" path="res://scenes/World/global_audio.gd" id="1_y08qo"]
-[ext_resource type="AudioStream" uid="uid://0iyq5ridp2li" path="res://assets/stop.ogg" id="2_7wvb6"]
+[ext_resource type="AudioStream" uid="uid://7bybmi4ybejm" path="res://assets/SFX & Music/Re-Frame - 11_26_26, 12.47 PM-edited.wav" id="3_7wvb6"]
 
 [node name="GlobalAudio" type="Node" unique_id=1121630253]
 script = ExtResource("1_y08qo")
 
 [node name="Stop" type="AudioStreamPlayer" parent="." unique_id=204372562]
-stream = ExtResource("2_7wvb6")
+stream = ExtResource("3_7wvb6")
+volume_db = -7.71
+
+[node name="FFWD" type="AudioStreamPlayer" parent="." unique_id=514518303]
+stream = ExtResource("3_7wvb6")
+volume_db = -34.667
+
+[node name="RWND" type="AudioStreamPlayer" parent="." unique_id=1065591857]
+stream = ExtResource("3_7wvb6")
+
+[node name="REVERT" type="AudioStreamPlayer" parent="." unique_id=133738354]
+stream = ExtResource("3_7wvb6")
+volume_db = -17.333
+
+[node name="Transition" type="AudioStreamPlayer" parent="." unique_id=287890041]
+stream = ExtResource("3_7wvb6")
+volume_db = -34.586
+pitch_scale = 0.9

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dtwgu6a7ilmq1"
+path="res://.godot/imported/Unparalleled distress.wav-e298a37ddf6b646d79e6c23a85b64157.sample"
+
+[deps]
+
+source_file="res://assets/SFX & Music/Unparalleled distress.wav"
+dest_files=["res://.godot/imported/Unparalleled distress.wav-e298a37ddf6b646d79e6c23a85b64157.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

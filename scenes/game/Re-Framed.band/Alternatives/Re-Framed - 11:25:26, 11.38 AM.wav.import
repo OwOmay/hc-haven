@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://db37apbka4bpw"
+path="res://.godot/imported/Re-Framed - 11:25:26, 11.38 AM.wav-8c9fe0d70c94a14718c109e4029037b7.sample"
+
+[deps]
+
+source_file="res://scenes/game/Re-Framed.band/Alternatives/Re-Framed - 11:25:26, 11.38 AM.wav"
+dest_files=["res://.godot/imported/Re-Framed - 11:25:26, 11.38 AM.wav-8c9fe0d70c94a14718c109e4029037b7.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

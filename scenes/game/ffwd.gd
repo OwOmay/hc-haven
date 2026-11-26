@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 		else:
 			GlobalVars.current_time = GlobalVars.unlocked_end
 		if is_equal_approx(GlobalVars.current_time, GlobalVars.unlocked_end):
-			GlobalAudio.get_child(0).play()
+			GlobalAudio.get_node("FFWD").play()
 	elif was_forward:
 		GlobalVars.time_mod = 0
 		was_forward = false

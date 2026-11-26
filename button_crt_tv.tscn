@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://be3xsrc8jiym3"]
+
+[ext_resource type="PackedScene" uid="uid://2kj60c6nbg08" path="res://scenes/game/Wood051_2K-PNG/Button-CRT-TV.glb" id="1_yf84o"]
+[ext_resource type="Texture2D" uid="uid://d1j47346kth0r" path="res://scenes/game/Wood051_2K-PNG/Button-CRT-TV_Test (5)_CRT TV Texture.png" id="2_tnvji"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_74osr"]
+albedo_texture = ExtResource("2_tnvji")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nwhbm"]
+albedo_texture = ExtResource("2_tnvji")
+
+[node name="Button-CRT-TV" unique_id=706400249 instance=ExtResource("1_yf84o")]
+
+[node name="Cube_001" parent="." index="0" unique_id=632661529]
+transform = Transform3D(-0.8551099, 0, -7.475608e-08, 0, 0.44629696, 0, 7.475608e-08, 0, -0.8551099, -0.7287018, -0.21832156, -0.77992725)
+material_override = SubResource("StandardMaterial3D_74osr")
+
+[node name="Cube_003" parent="." index="1" unique_id=966841995]
+transform = Transform3D(-0.8551099, 0, -7.475608e-08, 0, 0.44629696, 0, 7.475608e-08, 0, -0.8551099, -0.74824893, -0.23175645, -1.0533442)
+material_override = SubResource("StandardMaterial3D_nwhbm")

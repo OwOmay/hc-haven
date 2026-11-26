@@ -1,13 +1,13 @@
 shader_type spatial;
 
-uniform sampler2D paper_texture : repeat_enable, filter_linear_mipmap_anisotropic;
-uniform sampler2D paper_normal : hint_normal, repeat_enable, filter_linear_mipmap_anisotropic;
-uniform sampler2D paper_height : repeat_enable, filter_linear_mipmap_anisotropic;
-uniform sampler2D paper_roughness: hint_default_white, repeat_enable, filter_linear_mipmap_anisotropic;
+uniform sampler2D paper_texture : repeat_enable;
+uniform sampler2D paper_normal : hint_normal, repeat_enable;
+uniform sampler2D paper_height : repeat_enable;
+uniform sampler2D paper_roughness: hint_default_white, repeat_enable;
 uniform float paper_influence: hint_range(0.0, 1.0) = 0.5; // amount the sketch is blended into the paper: 1.0 = sketch not visible
 uniform float paper_scale = 4.0; // scale of the paper texture/normal/rough - used to 'zoom' the textures
 uniform float height_scale = 0.2; // scale of the creases
-uniform sampler2D sketch: source_color, filter_linear_mipmap_anisotropic;
+uniform sampler2D sketch: source_color, filter_nearest;
 
 varying vec2 tex_position;
 

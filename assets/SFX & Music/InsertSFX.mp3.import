@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cd6r76ggn03hw"
+path="res://.godot/imported/InsertSFX.mp3-feb35af7f487aa69051f56e077c827e5.mp3str"
+
+[deps]
+
+source_file="res://assets/SFX & Music/InsertSFX.mp3"
+dest_files=["res://.godot/imported/InsertSFX.mp3-feb35af7f487aa69051f56e077c827e5.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

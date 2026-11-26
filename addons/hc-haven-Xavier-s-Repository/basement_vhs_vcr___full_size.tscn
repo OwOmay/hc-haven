@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://dyt7vh2pitrgw"]
-
-[node name="Basement VHS VCR - full size" unique_id=1559260119]
-
-[node name="VCR body" parent="." index="0" unique_id=761076647]
-layers = 5

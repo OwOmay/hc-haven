@@ -28,7 +28,7 @@ func _on_body_entered(body: Node3D) -> void:
 		await get_tree().create_timer(.1).timeout
 		body.reparent(self, true)
 		var tweens := create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-		tweens.tween_property(body, "global_transform", entry_point.global_transform, 1)
+		tweens.tween_property(body, "global_transform", entry_point.global_transform, .75)
 		anim_player.play("Insert tape")
 		#body.hide()
 	

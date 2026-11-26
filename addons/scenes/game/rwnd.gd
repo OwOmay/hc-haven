@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 		else:
 			GlobalVars.current_time = GlobalVars.unlocked_start
 		if is_equal_approx(GlobalVars.current_time, GlobalVars.unlocked_start):
-			GlobalAudio.get_child(0).play()
+			GlobalAudio.get_node("RWND").play()
 	elif was_rewinding:
 		GlobalVars.time_mod = 0
 		was_rewinding = false
